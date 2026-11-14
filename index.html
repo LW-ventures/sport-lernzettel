@@ -1,0 +1,831 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sport Lernzettel</title>
+<meta name="description" content="Interaktiver Lernzettel Sport J2: Muskulatur, Trainingsprinzipien, Fitness, Kraft, Anpassung.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;800;900&family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f3f4ef; --surface:#ffffff; --surface-2:#e9ebe3; --line:#d5d8cc;
+  --text:#16180f; --muted:#5a5e50; --accent:#4f7a00; --accent-ink:#ffffff;
+  --accent-soft:#e3efc8; --good:#2f7a3a; --good-soft:#dcefdc; --bad:#b3261e; --bad-soft:#f8dedb;
+  --afb1:#2f6fb0; --afb2:#a86a00; --afb3:#b3261e;
+  --shadow:0 1px 0 rgba(22,24,15,.04), 0 8px 24px -12px rgba(22,24,15,.18);
+  --r:14px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0f110c; --surface:#171a12; --surface-2:#1f2318; --line:#2e3324;
+    --text:#eef1e6; --muted:#a3a894; --accent:#c4ef4a; --accent-ink:#141a05;
+    --accent-soft:#29341a; --good:#7fd28a; --good-soft:#1c2e1f; --bad:#ff8a80; --bad-soft:#3a1d1a;
+    --afb1:#7fb4ec; --afb2:#f2b950; --afb3:#ff8a80;
+    --shadow:0 1px 0 rgba(0,0,0,.3), 0 10px 30px -14px rgba(0,0,0,.7);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0f110c; --surface:#171a12; --surface-2:#1f2318; --line:#2e3324;
+  --text:#eef1e6; --muted:#a3a894; --accent:#c4ef4a; --accent-ink:#141a05;
+  --accent-soft:#29341a; --good:#7fd28a; --good-soft:#1c2e1f; --bad:#ff8a80; --bad-soft:#3a1d1a;
+  --afb1:#7fb4ec; --afb2:#f2b950; --afb3:#ff8a80;
+  --shadow:0 1px 0 rgba(0,0,0,.3), 0 10px 30px -14px rgba(0,0,0,.7);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--text);font-family:"Geist",system-ui,sans-serif;font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+button,input{font:inherit;color:inherit}
+button{cursor:pointer}
+.display{font-family:"Big Shoulders Display",sans-serif;font-weight:800;letter-spacing:.01em;line-height:.95;text-transform:uppercase}
+.mono{font-family:"Geist Mono",monospace}
+.wrap{max-width:1080px;margin:0 auto;padding:0 16px}
+
+/* top bar */
+.top{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.top-in{display:flex;align-items:center;gap:12px;height:60px}
+.brand{font-size:24px;white-space:nowrap}
+.brand b{color:var(--accent)}
+.tabs{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;margin-left:auto}
+.tabs::-webkit-scrollbar{display:none}
+.tab{border:0;background:transparent;padding:8px 12px;border-radius:999px;font-weight:600;font-size:14px;color:var(--muted);white-space:nowrap;transition:background .2s,color .2s}
+.tab[aria-selected="true"]{background:var(--text);color:var(--bg)}
+.icon-btn{border:1px solid var(--line);background:var(--surface);width:38px;height:38px;border-radius:999px;display:grid;place-items:center;flex:none;font-size:15px}
+@media (max-width:720px){
+  .top-in{height:auto;flex-wrap:wrap;padding:10px 0 8px;row-gap:8px}
+  .tabs{order:3;width:100%;margin-left:0}
+  .theme-slot{margin-left:auto}
+}
+
+/* hero */
+.hero{display:grid;grid-template-columns:1.25fr 1fr;gap:40px;align-items:end;padding:56px 0 40px}
+.hero h1{font-size:clamp(56px,9vw,112px);margin:0}
+.hero h1 span{color:var(--accent)}
+.hero p{color:var(--muted);max-width:44ch;margin:18px 0 0;font-size:17px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px;box-shadow:var(--shadow)}
+.stat .n{font-family:"Big Shoulders Display";font-weight:800;font-size:40px;line-height:1}
+.stat .l{font-size:13px;color:var(--muted);margin-top:4px}
+.bar{height:6px;border-radius:9px;background:var(--surface-2);overflow:hidden;margin-top:10px}
+.bar i{display:block;height:100%;background:var(--accent);width:0;transition:width .6s cubic-bezier(.16,1,.3,1)}
+@media (max-width:820px){.hero{grid-template-columns:1fr;gap:24px;padding:32px 0 24px}}
+
+/* views */
+.view{display:none;padding-bottom:80px}
+.view.on{display:block;animation:enter .45s cubic-bezier(.16,1,.3,1)}
+@keyframes enter{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.vhead{display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:12px;margin:28px 0 18px}
+.vhead h2{font-size:clamp(40px,6vw,64px);margin:0}
+.vhead p{margin:6px 0 0;color:var(--muted);max-width:60ch}
+
+/* chips */
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:6px 12px;font-size:13px;font-weight:600;color:var(--muted)}
+.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.afb{display:inline-block;font-family:"Geist Mono";font-size:11px;font-weight:500;padding:2px 7px;border-radius:999px;border:1px solid currentColor;vertical-align:middle;white-space:nowrap}
+.afb.a1{color:var(--afb1)}.afb.a2{color:var(--afb2)}.afb.a3{color:var(--afb3)}
+
+/* buttons */
+.btn{border:0;border-radius:999px;padding:11px 18px;font-weight:600;font-size:15px;background:var(--accent);color:var(--accent-ink);transition:transform .15s}
+.btn:active{transform:scale(.97)}
+.btn.ghost{background:var(--surface);color:var(--text);border:1px solid var(--line)}
+.btn.small{padding:7px 13px;font-size:13px}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+
+/* zettel */
+.topic{border-top:2px solid var(--text);padding:26px 0 8px;margin-top:20px}
+.topic-h{display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:baseline;margin-bottom:18px}
+.topic-h .num{font-family:"Big Shoulders Display";font-weight:900;font-size:64px;line-height:.8;color:var(--accent)}
+.topic-h h3{font-size:clamp(34px,5vw,52px);margin:0}
+.topic-h p{grid-column:2;margin:4px 0 0;color:var(--muted)}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media (max-width:820px){.grid2,.grid3{grid-template-columns:1fr}}
+.box{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px;box-shadow:var(--shadow)}
+.box h4{margin:0 0 8px;font-size:17px;font-weight:700}
+.box p{margin:0 0 8px}
+.box p:last-child{margin-bottom:0}
+.box ul{margin:0;padding-left:18px}
+.box li{margin:3px 0}
+.box.span2{grid-column:span 2}
+.box.span3{grid-column:1/-1}
+@media (max-width:820px){.box.span2{grid-column:auto}}
+.merke{background:var(--accent-soft);border:1px solid color-mix(in srgb,var(--accent) 45%,transparent);border-radius:var(--r);padding:14px 18px;margin-top:14px}
+.merke strong{color:var(--text)}
+.k{font-weight:700}
+.hl{background:var(--accent-soft);padding:0 4px;border-radius:4px;font-weight:600}
+table{width:100%;border-collapse:collapse;font-size:14.5px}
+th,td{text-align:left;padding:9px 10px;vertical-align:top}
+thead th{font-family:"Geist Mono";font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);border-bottom:1px solid var(--line)}
+tbody tr+tr td{border-top:1px solid var(--line)}
+.tscroll{overflow-x:auto;margin:0 -4px}
+
+/* hierarchy stepper */
+.steps{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0 12px}
+.step{border:1px solid var(--line);background:var(--surface-2);border-radius:999px;padding:6px 11px;font-size:13px;font-weight:600}
+.step[aria-pressed="true"]{background:var(--text);color:var(--bg);border-color:var(--text)}
+.zoom{display:grid;grid-template-columns:120px 1fr;gap:18px;align-items:center}
+.rings{position:relative;width:120px;height:120px}
+.rings span{position:absolute;border-radius:50%;border:2px solid var(--line);left:50%;top:50%;transform:translate(-50%,-50%);transition:border-color .3s,background .3s}
+.rings span.on{border-color:var(--accent);background:color-mix(in srgb,var(--accent) 18%,transparent)}
+@media (max-width:520px){.zoom{grid-template-columns:1fr}.rings{margin:0 auto}}
+
+/* superkomp chart */
+.chart-wrap{background:var(--surface-2);border-radius:12px;padding:8px}
+.chart-wrap svg{width:100%;height:auto;display:block}
+
+/* flashcards */
+.fc-area{display:grid;grid-template-columns:1fr;place-items:center;gap:18px;margin-top:10px}
+.fc{width:min(560px,100%);aspect-ratio:3/2;perspective:1200px;border:0;background:none;padding:0}
+.fc-in{position:relative;width:100%;height:100%;transition:transform .55s cubic-bezier(.16,1,.3,1);transform-style:preserve-3d}
+.fc.flip .fc-in{transform:rotateY(180deg)}
+.fc-face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:20px;padding:26px;display:flex;flex-direction:column;justify-content:center;text-align:left;border:1px solid var(--line);box-shadow:var(--shadow);overflow:auto}
+.fc-front{background:var(--surface)}
+.fc-back{background:var(--text);color:var(--bg);transform:rotateY(180deg)}
+.fc-face .t{font-family:"Geist Mono";font-size:12px;color:var(--muted);margin-bottom:10px}
+.fc-back .t{color:color-mix(in srgb,var(--bg) 65%,transparent)}
+.fc-face .q{font-size:clamp(20px,3.6vw,28px);font-weight:600;line-height:1.25}
+.fc-face .a{font-size:clamp(16px,2.6vw,19px);line-height:1.45}
+@media (max-width:520px){.fc{aspect-ratio:4/5}}
+.fc-meta{font-family:"Geist Mono";font-size:13px;color:var(--muted)}
+
+/* quiz */
+.qcard{max-width:720px}
+.qtext{font-size:clamp(19px,3vw,24px);font-weight:600;line-height:1.3;margin:10px 0 16px}
+.opts{display:grid;gap:8px}
+.opt{text-align:left;border:1px solid var(--line);background:var(--surface);border-radius:12px;padding:13px 15px;font-size:15.5px;transition:border-color .2s,background .2s,transform .15s}
+.opt:hover{border-color:var(--text)}
+.opt:active{transform:scale(.99)}
+.opt.right{background:var(--good-soft);border-color:var(--good)}
+.opt.wrong{background:var(--bad-soft);border-color:var(--bad)}
+.opt:disabled{cursor:default}
+.explain{margin-top:14px;padding:14px 16px;border-radius:12px;background:var(--surface-2);display:none}
+.explain.on{display:block;animation:enter .35s ease}
+.qprog{display:flex;justify-content:space-between;align-items:center;gap:10px;font-family:"Geist Mono";font-size:13px;color:var(--muted)}
+.result{text-align:left}
+.result .big{font-family:"Big Shoulders Display";font-weight:900;font-size:96px;line-height:.9;color:var(--accent)}
+
+/* gaps */
+.gap-text{font-size:17px;line-height:2.1}
+.gap{border:0;border-bottom:2px solid var(--muted);background:var(--surface-2);border-radius:6px 6px 0 0;padding:0 6px;min-width:90px;width:calc(var(--w,8) * 1ch + 22px);max-width:100%;font-size:16px;outline:none}
+.gap:focus{border-bottom-color:var(--accent);background:var(--accent-soft)}
+.gap.ok{border-bottom-color:var(--good);background:var(--good-soft)}
+.gap.no{border-bottom-color:var(--bad);background:var(--bad-soft)}
+.sol{font-family:"Geist Mono";font-size:12px;color:var(--bad);margin-left:4px}
+.bank{display:none;flex-wrap:wrap;gap:6px;margin:10px 0}
+.bank.on{display:flex}
+.bank span{font-family:"Geist Mono";font-size:13px;background:var(--surface-2);border-radius:6px;padding:3px 8px}
+
+/* klausur */
+.ops{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+@media (max-width:820px){.ops{grid-template-columns:1fr}}
+.ops dl{margin:0}
+.ops dt{font-weight:700;margin-top:8px}
+.ops dd{margin:0;color:var(--muted);font-size:14.5px}
+.task{border:1px solid var(--line);background:var(--surface);border-radius:var(--r);margin-top:12px;overflow:hidden}
+.task summary{list-style:none;padding:16px 18px;display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:start;cursor:pointer}
+.task summary::-webkit-details-marker{display:none}
+.task summary .pts{font-family:"Geist Mono";font-size:12px;color:var(--muted);white-space:nowrap}
+.task .body{padding:0 18px 18px}
+.task textarea{width:100%;min-height:120px;border:1px solid var(--line);border-radius:10px;background:var(--surface-2);padding:12px;font:inherit;color:inherit;resize:vertical}
+.task textarea:focus{outline:2px solid var(--accent);outline-offset:1px}
+.model{display:none;margin-top:12px;background:var(--accent-soft);border-radius:12px;padding:14px 16px}
+.model.on{display:block;animation:enter .35s ease}
+.model ul{margin:6px 0 0;padding-left:18px}
+.timer{font-family:"Big Shoulders Display";font-weight:800;font-size:64px;line-height:1}
+.timeline{display:grid;grid-template-columns:10fr 15fr 15fr 5fr;gap:4px;margin-top:10px}
+.timeline div{border-radius:8px;padding:8px;font-size:12.5px;font-weight:600;color:#fff}
+.timeline .t1{background:var(--afb1)}.timeline .t2{background:var(--afb2)}.timeline .t3{background:var(--afb3)}.timeline .t4{background:var(--muted)}
+:root[data-theme="dark"] .timeline div,
+:root:not([data-theme="light"]) .timeline div{color:#111}
+@media (prefers-color-scheme: light){:root:not([data-theme="dark"]) .timeline div{color:#fff}}
+:root[data-theme="light"] .timeline div{color:#fff}
+
+footer{border-top:1px solid var(--line);padding:24px 0 40px;color:var(--muted);font-size:13px}
+
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+}
+
+/* print */
+@media print{
+  :root{--bg:#fff;--surface:#fff;--surface-2:#f2f2f2;--line:#bbb;--text:#000;--muted:#333;--accent:#3d6000;--accent-soft:#eef5df}
+  body{font-size:10.5pt}
+  .top,.hero,.noprint,footer{display:none!important}
+  .view{display:none!important}
+  #v-zettel{display:block!important}
+  .box,.merke{box-shadow:none;break-inside:avoid}
+  .topic{break-before:auto;padding-top:10px;margin-top:10px}
+  .topic-h .num{font-size:40px}
+  .topic-h h3{font-size:30px}
+  .grid3{grid-template-columns:1fr 1fr}
+  .grid2,.grid3{gap:8px}
+  .box{padding:10px}
+  .vhead{display:none}
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap top-in">
+    <div class="brand display">Sport <b>J2</b></div>
+    <nav class="tabs" role="tablist" aria-label="Bereiche">
+      <button class="tab" role="tab" data-view="zettel" aria-selected="true">Lernzettel</button>
+      <button class="tab" role="tab" data-view="karten" aria-selected="false">Karteikarten</button>
+      <button class="tab" role="tab" data-view="quiz" aria-selected="false">Quiz</button>
+      <button class="tab" role="tab" data-view="luecken" aria-selected="false">Lückentexte</button>
+      <button class="tab" role="tab" data-view="klausur" aria-selected="false">Klausur</button>
+    </nav>
+    <div class="theme-slot"><button class="icon-btn" id="themeBtn" aria-label="Hell oder dunkel umschalten">◐</button></div>
+  </div>
+</header>
+
+<main class="wrap">
+  <section class="hero">
+    <div>
+      <h1 class="display">Klausur&shy;fit in <span>5</span> Themen</h1>
+      <p>Muskulatur, Trainingsprinzipien, Fitness, Kraft und Anpassung. Erst lesen, dann abfragen, zum Schluss Klausur üben.</p>
+    </div>
+    <div class="stats" aria-label="Dein Fortschritt">
+      <div class="stat"><div class="n" id="stCards">0</div><div class="l">Karten gewusst</div><div class="bar"><i id="brCards"></i></div></div>
+      <div class="stat"><div class="n" id="stQuiz">0%</div><div class="l">Quiz-Bestwert</div><div class="bar"><i id="brQuiz"></i></div></div>
+      <div class="stat"><div class="n" id="stGaps">0</div><div class="l">Lücken richtig</div><div class="bar"><i id="brGaps"></i></div></div>
+    </div>
+  </section>
+
+  <!-- ============ LERNZETTEL ============ -->
+  <section class="view on" id="v-zettel" role="tabpanel">
+    <div class="vhead">
+      <div>
+        <h2 class="display">Lernzettel</h2>
+        <p>Alles aus deinen fünf Heften, auf das Wichtigste gekürzt. Die Farbmarken zeigen, in welchem Anforderungsbereich der Stoff typischerweise abgefragt wird.</p>
+      </div>
+      <div class="row noprint">
+        <span class="afb a1">AFB I wiedergeben</span><span class="afb a2">AFB II erklären</span><span class="afb a3">AFB III beurteilen</span>
+        <button class="btn ghost small" onclick="window.print()">Drucken / PDF</button>
+      </div>
+    </div>
+
+    <!-- 1 MUSKULATUR -->
+    <article class="topic" id="t1">
+      <div class="topic-h"><div class="num">01</div><h3 class="display">Muskulatur</h3><p>Muskelarten, Aufbau, Arbeitsweisen, Anpassung</p></div>
+      <div class="grid3">
+        <div class="box"><h4>Glatte Muskulatur <span class="afb a1">I</span></h4><p>In Wänden der Hohlorgane (Magen-Darm, Blutgefäße). Kontrahiert <span class="k">langsam</span>, <span class="k">nicht willentlich</span> steuerbar, auch in Ruhe leicht angespannt.</p></div>
+        <div class="box"><h4>Herzmuskel <span class="afb a1">I</span></h4><p>Auch <span class="k">quergestreift</span> (Myokard), aber <span class="k">nicht bewusst</span> steuerbar. Kontrahiert rhythmisch und dauerhaft, damit der Blutfluss gesichert ist.</p></div>
+        <div class="box"><h4>Quergestreifte Muskulatur <span class="afb a1">I</span></h4><p>= Skelettmuskulatur, ca. <span class="hl">45 % der Körpermasse</span>, über 700 Muskeln. <span class="k">Willentlich</span> steuerbar.</p></div>
+      </div>
+      <div class="grid2" style="margin-top:14px">
+        <div class="box"><h4>4 Eigenschaften der Skelettmuskeln</h4><ul><li>reagieren auf Nervenreize (willentlich ansteuerbar)</li><li>können sich verkürzen (kontrahieren)</li><li>sind dehnbar</li><li>sind elastisch (zurück in Ausgangslage)</li></ul></div>
+        <div class="box"><h4>3 Aufgaben der Skelettmuskulatur</h4><ul><li>aufrechter Gang</li><li>Wärmeproduktion</li><li>aktive Bewegung: Muskel zieht über <span class="k">Sehnen</span> am <span class="k">Knochen</span></li></ul></div>
+      </div>
+
+      <div class="box" style="margin-top:14px">
+        <h4>Aufbau: vom Großen ins Kleine <span class="afb a1">I</span> <span class="afb a2">II</span></h4>
+        <div class="steps noprint" id="hSteps"></div>
+        <div class="zoom">
+          <div class="rings noprint" id="hRings" aria-hidden="true"></div>
+          <div><p class="k" id="hTitle" style="font-size:18px;margin:0 0 4px"></p><p id="hText" style="margin:0"></p></div>
+        </div>
+        <p class="mono" style="font-size:13px;color:var(--muted);margin-top:12px">Skelettmuskel → Muskelfaserbündel → Muskelfaser → Myofibrille → Sarkomer → Aktin + Myosin</p>
+      </div>
+
+      <div class="grid2" style="margin-top:14px">
+        <div class="box">
+          <h4>Alles-oder-nichts-Regel <span class="afb a2">II</span></h4>
+          <p><span class="k">Motorische Einheit</span> = eine Nervenzelle + alle von ihr angesteuerten Muskelfasern.</p>
+          <p>Sendet die Nervenzelle einen Reiz, kontrahiert <span class="k">jede</span> verbundene Faser <span class="k">maximal</span>. Keine halben Kontraktionen.</p>
+          <p>Abstufung der Kraft entsteht, weil <span class="k">unterschiedlich viele</span> motorische Einheiten aktiviert werden. Der Körper wechselt sie ab, damit der Muskel nicht früh ermüdet.</p>
+        </div>
+        <div class="box">
+          <h4>Fasern pro motorischer Einheit</h4>
+          <div class="tscroll"><table><thead><tr><th>Muskel</th><th>Fasern je Einheit</th><th>Folge</th></tr></thead>
+          <tbody><tr><td>Augenmuskeln</td><td>unter 10</td><td>sehr fein dosierbar</td></tr><tr><td>Bizeps</td><td>über 2000</td><td>viel Kraft, grober</td></tr></tbody></table></div>
+        </div>
+      </div>
+
+      <div class="box" style="margin-top:14px">
+        <h4>Kontraktionsformen <span class="afb a1">I</span> <span class="afb a2">II</span></h4>
+        <p>Kraft = Fähigkeit des Nerv-Muskel-Systems, Widerstände zu <span class="k">überwinden</span>, ihnen <span class="k">entgegenzuwirken</span> oder sie zu <span class="k">halten</span>.</p>
+        <div class="tscroll"><table><thead><tr><th>Form</th><th>Was passiert</th><th>Auch genannt</th><th>Beispiel</th></tr></thead><tbody>
+          <tr><td class="k">konzentrisch</td><td>Muskel verkürzt sich</td><td>positiv, überwindend</td><td>Bizeps beim Armbeugen</td></tr>
+          <tr><td class="k">exzentrisch</td><td>Muskel wird trotz Spannung gedehnt</td><td>negativ, nachgebend</td><td>Landung nach Sprung</td></tr>
+          <tr><td class="k">isometrisch</td><td>Kraft ohne Längenänderung</td><td>haltend</td><td>Unterarmstütz</td></tr>
+        </tbody></table></div>
+      </div>
+
+      <div class="grid2" style="margin-top:14px">
+        <div class="box"><h4>Agonist und Antagonist <span class="afb a2">II</span></h4><p><span class="k">Agonist</span> (Spieler) führt die Bewegung aus, <span class="k">Antagonist</span> (Gegenspieler) ist für die Gegenbewegung zuständig.</p><p>Armbeugen im Ellbogen: <span class="hl">Bizeps = Agonist</span>, <span class="hl">Trizeps = Antagonist</span>. Beim Strecken genau umgekehrt.</p></div>
+        <div class="box"><h4>Hypertrophie <span class="afb a1">I</span></h4><p>Muskelfasern verdicken sich, der <span class="k">Muskelquerschnitt</span> nimmt zu. Meist mit Gewichtszunahme.</p><p>Sichtbar nach <span class="k">7 bis 8 Wochen</span> (2 bis 3 Mal Training pro Woche). Männer können stärker zulegen als Frauen; vor der Pubertät nur begrenzt möglich und nicht empfehlenswert.</p></div>
+        <div class="box"><h4>Intramuskuläre Koordination <span class="afb a2">II</span></h4><p>Zusammenspiel <span class="k">innerhalb eines</span> Muskels: Wie viele motorische Einheiten können <span class="k">gleichzeitig</span> aktiviert werden? Mehr Kraft <span class="k">ohne</span> Gewichtszunahme möglich.</p></div>
+        <div class="box"><h4>Intermuskuläre Koordination <span class="afb a2">II</span></h4><p>Zusammenspiel <span class="k">verschiedener</span> Muskeln. Schlecht ausgeprägt: Der Antagonist kann bremsen. Gut automatisiert (z. B. Kraul-Armzug): Muskeln arbeiten ökonomisch. Trainierbar.</p></div>
+      </div>
+      <div class="merke"><strong>Merke:</strong> Stärker werden geht auf zwei Wegen: <strong>dicker</strong> (Hypertrophie) oder <strong>besser angesteuert</strong> (intra- und intermuskuläre Koordination).</div>
+    </article>
+
+    <!-- 2 PRINZIPIEN -->
+    <article class="topic" id="t2">
+      <div class="topic-h"><div class="num">02</div><h3 class="display">Trainings&shy;prinzipien</h3><p>Belastungskomponenten und drei Prinzipien</p></div>
+      <div class="box">
+        <h4>Belastungskomponenten: deine Stellschrauben <span class="afb a1">I</span> <span class="afb a2">II</span></h4>
+        <div class="tscroll"><table><thead><tr><th>Komponente</th><th>Bedeutung</th><th>Beispiel</th></tr></thead><tbody>
+          <tr><td class="k">Intensität</td><td>Anstrengungsgrad (Kraft: Gewicht, Ausdauer: Herzfrequenz)</td><td>„100 m in 11,2 s, mehr geht nicht“</td></tr>
+          <tr><td class="k">Dauer</td><td>Einwirkzeit eines Einzelreizes oder einer Serie</td><td>10 Wiederholungen in einer Serie</td></tr>
+          <tr><td class="k">Umfang</td><td>Gesamtmenge (Kraft: Anzahl Serien, Ausdauer: Gesamtstrecke)</td><td>5 Serien</td></tr>
+          <tr><td class="k">Dichte</td><td>Verhältnis Belastung zu Erholung, also die Pausen</td><td>30 s Pause zwischen den Serien</td></tr>
+        </tbody></table></div>
+        <p style="margin-top:10px">Faustregel: <span class="hl">hohe Intensität ↔ geringer Umfang</span> und umgekehrt (Sprinterin vs. Langstreckenläuferin). Kürzere Pausen = höhere Dichte = höhere Belastung. Im Heft „Anpassung“ kommt noch die <span class="k">Trainingshäufigkeit</span> dazu.</p>
+      </div>
+      <div class="grid3" style="margin-top:14px">
+        <div class="box"><h4>Richtige Belastungs&shy;zusammensetzung <span class="afb a2">II</span></h4><p>Die Komponenten müssen so kombiniert werden, dass <span class="k">genau die</span> konditionelle Fähigkeit trainiert wird, die verbessert werden soll.</p><p>Beispiel 100-m-Zeit: zyklische Aktionsschnelligkeit, <span class="k">Wiederholungsmethode</span>: nahezu maximale Intensität, lange Pausen, ca. 30 m Strecke.</p></div>
+        <div class="box"><h4>Trainings&shy;wirksamer Reiz <span class="afb a2">II</span></h4><p><span class="k">Unterschwellig</span>: wirkungslos. <span class="k">Überschwellig</span>: verbessert die Leistung. <span class="k">Zu stark</span>: schadet.</p><p>Die Belastung muss über dem <span class="k">Schwellenwert</span> liegen. Hohe Intensität → kurze Dauer je Reiz (90 % beim Bankdrücken → wenige Wiederholungen).</p></div>
+        <div class="box"><h4>Belastung und Erholung <span class="afb a2">II</span> <span class="afb a3">III</span></h4><p>Neue Belastung zum Zeitpunkt der <span class="k">höchsten Superkompensation</span>.</p><p>Erholung: <span class="hl">Kraft/Schnelligkeit 48 bis 72 h</span>, <span class="hl">Ausdauer 18 bis 36 h</span>. 2 bis 3 Einheiten pro Woche sind praktikabel.</p></div>
+      </div>
+      <div class="box" style="margin-top:14px">
+        <h4>Superkompensation interaktiv <span class="afb a2">II</span> <span class="afb a3">III</span></h4>
+        <div class="chips noprint" id="skChips" style="margin-bottom:10px">
+          <button class="chip" data-m="opt" aria-pressed="true">Pausen optimal</button>
+          <button class="chip" data-m="short" aria-pressed="false">Pausen zu kurz</button>
+          <button class="chip" data-m="long" aria-pressed="false">Pausen zu lang</button>
+        </div>
+        <div class="chart-wrap"><svg id="skSvg" viewBox="0 0 680 300" role="img" aria-label="Superkompensationskurve"></svg></div>
+        <p id="skText" style="margin:10px 0 0"></p>
+      </div>
+    </article>
+
+    <!-- 3 FITNESS -->
+    <article class="topic" id="t3">
+      <div class="topic-h"><div class="num">03</div><h3 class="display">Fitness</h3><p>Begriff, Chancen und Gefahren</p></div>
+      <div class="grid2">
+        <div class="box"><h4>Der Fitnessbegriff <span class="afb a1">I</span></h4><p>Von engl. <span class="k">„to fit“</span>: geeignet, passend, fähig, bereit.</p><p><span class="k">DOSB:</span> durch Training der konditionellen Fähigkeiten <span class="hl">Kraft, Ausdauer, Schnelligkeit, Beweglichkeit, Koordination</span> bewusst angestrebtes Leistungsvermögen. Dazu kommen <span class="k">psychische und soziale</span> Komponenten.</p><p>Fit wirst du durch Sport, der regelmäßig, richtig, mit Maß und Freude betrieben wird und alle Fähigkeiten gleichermaßen trainiert.</p></div>
+        <div class="box"><h4>Zahlen</h4><p>Mitglieder in Fitnessstudios: <span class="k">2003 ca. 4,4 Mio.</span>, <span class="k">2019 ca. 11,66 Mio.</span>, knapp 10.000 Studios. Fitness ist beliebter als Fußballtraining. 2020 durch Corona leicht rückläufig.</p><p>Ziel ist oft nicht Leistung, sondern Gesundheit, Ausgeglichenheit, Körpergefühl.</p></div>
+      </div>
+      <h4 style="margin:22px 0 10px;font-size:15px" class="mono">CHANCEN: KÖRPER</h4>
+      <div class="grid3">
+        <div class="box"><h4>Herz <span class="afb a2">II</span></h4><p>Ausdauertraining vergrößert das Herz (Innenräume weiter, Muskel dicker) → <span class="k">Schlagvolumen ↑</span> → <span class="k">Puls ↓</span> in Ruhe und unter Belastung → Herz wird entlastet.</p></div>
+        <div class="box"><h4>Blut <span class="afb a2">II</span></h4><p>Blutmenge bis <span class="k">+25 %</span> (1 bis 2 Liter) → mehr Hämoglobin → mehr <span class="k">Sauerstofftransport</span>, mehr aerobe Energie. Blut wird dünnflüssiger, Herz arbeitet weniger.</p></div>
+        <div class="box"><h4>Gefäße <span class="afb a2">II</span></h4><p>Mehr <span class="k">Kapillaren</span> und größerer Querschnitt (Kapillarisierung) → größere Austauschfläche → Muskeln besser versorgt.</p></div>
+      </div>
+      <h4 style="margin:22px 0 10px;font-size:15px" class="mono">CHANCEN: PSYCHE</h4>
+      <div class="grid2">
+        <div class="box"><h4>Stressresistenz</h4><p>Sport löst <span class="k">positiven Stress</span> aus (Adrenalin, Noradrenalin, Insulin, Cortisol). Danach Ruhephase → Hormonsystem fährt herunter. Der Körper lernt mit Stress umzugehen und wird gegen negativen Stress resistenter.</p></div>
+        <div class="box"><h4>Wohlbefinden, Entspannung, Selbstwert</h4><ul><li><span class="k">Endorphin und Serotonin</span> (Glückshormone), v. a. bei Ausdauersport</li><li>Spannungsabbau, Ablenkung von negativen Gedanken</li><li>Erfolgserlebnisse und bessere Fitness stärken das <span class="k">Selbstbild</span></li></ul></div>
+      </div>
+      <h4 style="margin:22px 0 10px;font-size:15px" class="mono">GEFAHREN</h4>
+      <div class="grid2">
+        <div class="box"><h4>Muskuläre Dysbalancen <span class="afb a2">II</span> <span class="afb a3">III</span></h4><p>Kräfteungleichgewicht zwischen Muskel und Gegenspieler, durch <span class="k">einseitiges Training</span> oder Fehlhaltungen (langes Sitzen). Folge: Verkürzungen, veränderte Gelenkbelastung.</p><p>Beispiel: nur Bauch und Brust → <span class="k">Rundrücken</span>. Lösung: immer auch den <span class="k">Antagonisten</span> trainieren.</p></div>
+        <div class="box"><h4>Sportsucht <span class="afb a1">I</span> <span class="afb a2">II</span></h4><p><span class="k">Primär:</span> Zwang zum Sport selbst (z. B. ständig joggen müssen). <span class="k">Sekundär:</span> sportbegleitende Sucht, z. B. Essstörung; Kalorienverbrauch steht im Vordergrund.</p><p>Merkmale: unkontrollierbarer Drang, Sport als Lebensmittelpunkt, Gereiztheit und Schuldgefühle bei Ausfall, Familie und Freunde werden vernachlässigt. Betrifft nur sehr wenige.</p></div>
+        <div class="box"><h4>Medikamentenmissbrauch <span class="afb a2">II</span></h4><p>„Alltagsdoping“. <span class="k">Doping</span> heißt es nur im <span class="k">Wettkampfsport</span> (Regelwerk). Über 1 Mio. Menschen in Studios nehmen leistungssteigernde Mittel: anabole Steroide, Clenbuterol, Stimulanzien (zweckentfremdet, WADA-Liste).</p><p>Auch Schmerzmittel ohne medizinischen Grund vor dem Training zählen. Je stärker sich jemand über den Körper definiert, desto höher das Risiko.</p></div>
+        <div class="box"><h4>Anorexia athletica</h4><p>Form der <span class="k">Magersucht</span>: krankhaftes Untergewicht durch viel Bewegung und zu wenig Energiezufuhr, bewusst in Kauf genommen für bessere Leistung.</p><p>Gefährdet: Sportarten mit niedrigem Körpergewicht, z. B. Judo, Skispringen, Ballett, rhythmische Sportgymnastik.</p></div>
+      </div>
+    </article>
+
+    <!-- 4 KRAFT -->
+    <article class="topic" id="t4">
+      <div class="topic-h"><div class="num">04</div><h3 class="display">Kraft</h3><p>Begriff, Messung, Kraftfähigkeiten, Methoden</p></div>
+      <div class="grid2">
+        <div class="box"><h4>Kraftbegriff <span class="afb a1">I</span></h4><p>Fähigkeit der Muskulatur, durch Kontraktion einen Widerstand zu <span class="k">überwinden</span>, ihm <span class="k">entgegenzuwirken</span> oder ihn <span class="k">zu halten</span>.</p><p>Von <span class="k">Kraftleistung</span> spricht man ab mindestens <span class="hl">30 % des individuellen Kraftmaximums</span>. Kraft brauchen wir auch im Alltag (Sitzen, Stehen, Atmen).</p></div>
+        <div class="box"><h4>Kraftmessung <span class="afb a1">I</span> <span class="afb a3">III</span></h4>
+          <div class="tscroll"><table><thead><tr><th>Test</th><th>Prinzip</th><th>Bewertung</th></tr></thead><tbody>
+            <tr><td class="k">1-RM</td><td>Gewicht, das genau 1 Mal bewältigt wird</td><td>hohe Belastung, Überlastungsgefahr, im Amateurbereich selten</td></tr>
+            <tr><td class="k">10-RM</td><td>Gewicht, bei dem die 10. Wiederholung gerade noch klappt; ca. <span class="hl">80 %</span> der Maximalkraft</td><td>nur Näherungswert, aber für Fitness und Gesundheit zu bevorzugen</td></tr>
+          </tbody></table></div>
+        </div>
+      </div>
+      <div class="grid3" style="margin-top:14px">
+        <div class="box"><h4>Maximalkraft <span class="afb a1">I</span></h4><p>Höchste Kraft, die willkürlich vom Nerv-Muskel-System erbracht werden kann.</p><p class="mono" style="font-size:13px;color:var(--muted)">Gewichtheberin</p></div>
+        <div class="box"><h4>Schnellkraft <span class="afb a1">I</span></h4><p>Körper, Gegenstand oder Körperteil in der verfügbaren Zeit maximal schnell bewegen bzw. beschleunigen.</p><p class="mono" style="font-size:13px;color:var(--muted)">Boxerin</p></div>
+        <div class="box"><h4>Kraftausdauer <span class="afb a1">I</span></h4><p>Kraft über eine längere Dauer oder Strecke nahezu konstant halten.</p><p class="mono" style="font-size:13px;color:var(--muted)">Ruderin</p></div>
+      </div>
+      <p style="margin:10px 2px 0;color:var(--muted)">Kraftfähigkeiten treten nie in Reinform auf: Die Boxerin braucht auch Kraftausdauer für mehrere Runden.</p>
+      <div class="box" style="margin-top:14px">
+        <h4>Trainingsmethoden <span class="afb a2">II</span> <span class="afb a3">III</span></h4>
+        <div class="tscroll"><table><thead><tr><th>Ziel</th><th>Methode</th><th>Wirkung</th><th>Belastung</th></tr></thead><tbody>
+          <tr><td rowspan="2" class="k">Maximal&shy;kraft</td><td class="k">Q-Methode</td><td>Muskel<span class="hl">querschnitt</span> ↑ (Hypertrophie)</td><td>8 bis 12 Wdh. gerade so, 4 bis 6 Serien, 2 bis 3 min Pause</td></tr>
+          <tr><td class="k">IK-Methode</td><td>mehr innervierte Fasern (<span class="hl">intramuskuläre Koordination</span>)</td><td>maximale Intensität, 1 bis 5 Wdh., 4 bis 5 Serien, 3 bis 5 min Pause</td></tr>
+          <tr><td rowspan="2" class="k">Kraft&shy;ausdauer</td><td class="k">Zirkeltraining</td><td rowspan="2">Ermüdungswiderstandsfähigkeit des Muskels ↑</td><td>mehrere Stationen, jede Muskelgruppe 2 Mal; 20 bis 40 s je Übung, 2 bis 3 Runden, ca. 30 s Pause</td></tr>
+          <tr><td class="k">Stations-/ Serientraining</td><td>mehrere Serien einer Übung, 20 bis 40 Wdh., jede Muskelgruppe 4 bis 6 Mal, 2 bis 3 min Pause</td></tr>
+        </tbody></table></div>
+        <p style="margin-top:10px">Für die allgemeine Fitness zählen v. a. <span class="k">Maximalkraft und Kraftausdauer</span>. Schnellkraft braucht lange, intensive Training und hängt genetisch von der Muskelfaserverteilung ab.</p>
+      </div>
+      <div class="grid2" style="margin-top:14px">
+        <div class="box"><h4>Fitnessorientiertes Krafttraining <span class="afb a3">III</span></h4><ul><li>möglichst viele große Muskelgruppen pro Training</li><li>niedrige bis mittlere Intensitäten (Verletzungsprophylaxe)</li><li>Alltagsgegenstände oder Körpergewicht statt Hanteln</li><li>Methode passend zur Zielsetzung</li></ul><p style="margin-top:8px">Ziel: <span class="k">mehrere</span> Kraftfähigkeiten. Leistungssport: meist <span class="k">eine</span> leistungslimitierende Kraftfähigkeit.</p></div>
+        <div class="box"><h4>HIIT und Zirkel</h4><p><span class="k">High-Intensity-Intervall-Training:</span> oft Mischform der Methoden. Effektiv durch hohe Intensität bei kurzer Gesamtdauer; trainiert Kraft <span class="k">und</span> Ausdauer.</p><p>Die Intensität kommt eher von der Belastung des <span class="k">Gesamtorganismus</span> als von hohen Kraftbelastungen. Umsetzung gut als Zirkel (Pezziball, Wasserflaschen, Medizinball).</p></div>
+      </div>
+    </article>
+
+    <!-- 5 ANPASSUNG -->
+    <article class="topic" id="t5">
+      <div class="topic-h"><div class="num">05</div><h3 class="display">Anpassung</h3><p>Adaptation und ihre Einflussfaktoren</p></div>
+      <div class="grid2">
+        <div class="box"><h4>Use it or lose it <span class="afb a2">II</span></h4><p>Der Körper reagiert auf Reize mit <span class="k">funktioneller Anpassung (Adaptation)</span>. Grundlage jedes Leistungszuwachses.</p><p><span class="k">Use it:</span> regelmäßiges Training → Muskulatur passt sich an, mehr Gewicht ohne Muskelkater. <span class="k">Lose it:</span> Pause → Muskelmasse geht zurück, Energie wird anders verwendet. Adaptation läuft in <span class="k">beide Richtungen</span>.</p></div>
+        <div class="box"><h4>Muscle-Memory-Effekt</h4><p>Nach langer Pause „erinnert“ sich die Muskulatur an den früheren Trainingszustand. Beim Wiedereinstieg baut sich Muskelmasse schneller wieder auf.</p></div>
+      </div>
+      <div class="grid2" style="margin-top:14px">
+        <div class="box"><h4>Endogene Faktoren (innen) <span class="afb a1">I</span> <span class="afb a2">II</span></h4><p style="color:var(--muted)">begrenzen, wie schnell Wiederherstellung und Anpassung ablaufen</p>
+          <ul><li><span class="k">Trainingszustand:</span> Anfänger große Fortschritte mit wenig Aufwand, Profis nur noch kleine trotz höchster Reize</li><li><span class="k">Alter:</span> Anpassung wird langsamer, bleibt aber bis ins hohe Alter; mehr Erholungszeit nötig</li><li><span class="k">Geschlecht:</span> mehr <span class="k">Testosteron</span> → Männer bauen in gleicher Zeit ca. <span class="hl">3-mal</span> so viel Muskelmasse auf</li></ul></div>
+        <div class="box"><h4>Exogene Faktoren (außen) <span class="afb a1">I</span> <span class="afb a2">II</span></h4><p style="color:var(--muted)">wirken wie Katalysatoren, beschleunigen Anpassung</p>
+          <ul><li><span class="k">Ernährung:</span> Speicher auffüllen; Mineralstoffe bei Flüssigkeitsverlust; Kraftsport viel <span class="k">Eiweiß</span>, Ausdauer v. a. <span class="k">Kohlenhydrate</span></li><li><span class="k">Regenerative Maßnahmen:</span> Auslaufen, aktive Erholung (Laktatabbau), Massage, Kälte, Schlaf</li><li><span class="k">Belastungsparameter:</span> Intensität, Dichte, Dauer, Umfang, Häufigkeit abstimmen</li><li><span class="k">Doping</span> zählt auch dazu (verboten)</li></ul></div>
+      </div>
+      <div class="merke"><strong>Merke:</strong> Spitzensportler erholen sich in <strong>3 bis 6 Stunden</strong> fast vollständig, weniger Trainierte brauchen bis zu <strong>24 Stunden</strong>. Unterschwellige Reize bewirken nichts, zu starke schaden, nur <strong>wohldosierte überschwellige</strong> Reize führen zu positiver Anpassung.</div>
+    </article>
+  </section>
+
+  <!-- ============ KARTEIKARTEN ============ -->
+  <section class="view" id="v-karten" role="tabpanel">
+    <div class="vhead"><div><h2 class="display">Karteikarten</h2><p>Antippen zum Umdrehen. Sortiere ehrlich: Was du nicht weißt, kommt später wieder.</p></div>
+      <div class="chips" id="fcFilter"></div></div>
+    <div class="fc-area">
+      <div class="fc-meta" id="fcMeta"></div>
+      <button class="fc" id="fc" aria-label="Karte umdrehen"><div class="fc-in"><div class="fc-face fc-front"><div class="t" id="fcT1"></div><div class="q" id="fcQ"></div></div><div class="fc-face fc-back"><div class="t" id="fcT2"></div><div class="a" id="fcA"></div></div></div></button>
+      <div class="row" style="justify-content:center">
+        <button class="btn ghost" id="fcAgain">Nochmal</button>
+        <button class="btn" id="fcKnow">Wusste ich</button>
+      </div>
+      <button class="btn ghost small" id="fcReset">Gewusste Karten zurücksetzen</button>
+    </div>
+  </section>
+
+  <!-- ============ QUIZ ============ -->
+  <section class="view" id="v-quiz" role="tabpanel">
+    <div class="vhead"><div><h2 class="display">Quiz</h2><p>Auswahlaufgaben mit Erklärung. Fehler landen in deinem Fehler-Stapel.</p></div>
+      <div class="chips" id="qzFilter"></div></div>
+    <div id="qzBox" class="qcard"></div>
+  </section>
+
+  <!-- ============ LÜCKENTEXTE ============ -->
+  <section class="view" id="v-luecken" role="tabpanel">
+    <div class="vhead"><div><h2 class="display">Lückentexte</h2><p>Tippe die fehlenden Fachbegriffe ein. Groß- und Kleinschreibung ist egal.</p></div></div>
+    <div id="gpBox" style="display:grid;gap:14px"></div>
+  </section>
+
+  <!-- ============ KLAUSUR ============ -->
+  <section class="view" id="v-klausur" role="tabpanel">
+    <div class="vhead"><div><h2 class="display">Klausur&shy;training</h2><p>45 Minuten, alle drei Anforderungsbereiche. Lerne die Operatoren, schreib deine Antwort, vergleiche mit dem Erwartungshorizont.</p></div></div>
+
+    <div class="ops">
+      <div class="box"><h4><span class="afb a1">AFB I</span> Reproduktion</h4><dl>
+        <dt>nennen</dt><dd>ohne Erklärung aufzählen</dd>
+        <dt>beschreiben</dt><dd>Sachverhalt in eigenen Worten wiedergeben</dd>
+        <dt>darstellen / definieren</dt><dd>strukturiert wiedergeben, Begriff genau festlegen</dd></dl></div>
+      <div class="box"><h4><span class="afb a2">AFB II</span> Reorganisation, Transfer</h4><dl>
+        <dt>erklären / erläutern</dt><dd>Ursachen und Zusammenhänge verständlich machen, mit Beispielen</dd>
+        <dt>vergleichen</dt><dd>Gemeinsamkeiten und Unterschiede kriteriengeleitet</dd>
+        <dt>anwenden / zuordnen</dt><dd>Wissen auf ein neues Beispiel übertragen</dd></dl></div>
+      <div class="box"><h4><span class="afb a3">AFB III</span> Reflexion, Problemlösung</h4><dl>
+        <dt>beurteilen / bewerten</dt><dd>begründetes eigenes Urteil mit Kriterien</dd>
+        <dt>Stellung nehmen / diskutieren</dt><dd>Pro und Contra abwägen, Fazit ziehen</dd>
+        <dt>entwickeln / planen</dt><dd>eigenen Vorschlag (z. B. Trainingsplan) begründet erstellen</dd></dl></div>
+    </div>
+
+    <div class="box" style="margin-top:14px">
+      <h4>Zeitplan für 45 Minuten</h4>
+      <div class="timeline"><div class="t1">AFB I · 10 min</div><div class="t2">AFB II · 15 min</div><div class="t3">AFB III · 15 min</div><div class="t4">5</div></div>
+      <p style="margin:10px 0 0;color:var(--muted)">Die letzten 5 Minuten: durchlesen. Bei AFB III immer mit einem klaren Fazit enden und Fachbegriffe aus dem Stoff verwenden.</p>
+    </div>
+
+    <div class="box" style="margin-top:14px;display:grid;grid-template-columns:auto 1fr;gap:20px;align-items:center" id="simBox">
+      <div><div class="timer" id="simTime">45:00</div><div class="mono" style="font-size:12px;color:var(--muted)">Probeklausur</div></div>
+      <div><p style="margin:0 0 10px">Zufällige Probeklausur aus 4 Aufgaben (I, II, II, III). Timer startet, Lösungen erst nach Abgabe.</p>
+        <div class="row"><button class="btn" id="simStart">Probeklausur starten</button><button class="btn ghost" id="simStop" hidden>Abgeben</button></div></div>
+    </div>
+
+    <h3 class="display" style="font-size:34px;margin:30px 0 4px" id="taskHead">Alle Übungsaufgaben</h3>
+    <div class="chips" id="tkFilter" style="margin:10px 0 0"></div>
+    <div id="tkBox"></div>
+  </section>
+</main>
+
+<footer><div class="wrap">Grundlage: deine fünf Hefte (Muskulatur, Prinzipien, Fitness, Kraft, Anpassung). Fortschritt wird nur in diesem Browser gespeichert.</div></footer>
+
+<script>
+/* ---------- storage ---------- */
+const KEY='sport-lz-v1';
+let S={known:[],quizBest:null,wrong:[],gapsOk:{}};
+try{const r=localStorage.getItem(KEY);if(r)S=Object.assign(S,JSON.parse(r));}catch(e){}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S));}catch(e){} stats();}
+
+const TOPICS={mus:'Muskulatur',pri:'Prinzipien',fit:'Fitness',kra:'Kraft',anp:'Anpassung'};
+const $=s=>document.querySelector(s);
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;};
+const esc=s=>s.replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+
+/* ---------- theme ---------- */
+(function(){let t=null;try{t=localStorage.getItem(KEY+'-theme');}catch(e){} if(t)document.documentElement.dataset.theme=t;})();
+$('#themeBtn').onclick=()=>{const cur=document.documentElement.dataset.theme||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');const n=cur==='dark'?'light':'dark';document.documentElement.dataset.theme=n;try{localStorage.setItem(KEY+'-theme',n);}catch(e){} drawSK();};
+
+/* ---------- tabs ---------- */
+document.querySelectorAll('.tab').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('.tab').forEach(x=>x.setAttribute('aria-selected',x===b));
+  document.querySelectorAll('.view').forEach(v=>v.classList.toggle('on',v.id==='v-'+b.dataset.view));
+  window.scrollTo({top:document.querySelector('.hero').offsetHeight*0.85,behavior:'smooth'});
+});
+
+/* ---------- hierarchy ---------- */
+const H=[
+ ['Skelettmuskel','Über 700 Muskeln im Körper. Jeder Muskel besteht aus vielen Muskelfaserbündeln.'],
+ ['Muskelfaserbündel','Die nächst kleinere Einheit. Ein Bündel besteht aus vielen Muskelfasern.'],
+ ['Muskelfaser','Wichtigster Baustein: eine sehr große Zelle mit vielen Zellkernen, bis 15 cm lang und 0,1 mm dick, mit bloßem Auge erkennbar.'],
+ ['Myofibrille','Fadenförmige Strukturen, die die Faser längs durchziehen. Sie können kontrahieren und bestehen aus Ketten von Aktin- und Myosinfilamenten.'],
+ ['Sarkomer','Kleinste Untereinheit, aneinandergereiht. Begrenzt durch feine quer verlaufende Linien, die Z-Streifen.'],
+ ['Aktin + Myosin','Helle und dunkle Streifen unter dem Mikroskop geben den Namen „quergestreift“. Bei Kontraktion schiebt sich das dünne Aktin zwischen das dicke Myosin.']
+];
+let hIdx=0;
+function renderH(){
+  $('#hSteps').innerHTML=H.map((h,i)=>`<button class="step" aria-pressed="${i===hIdx}" data-i="${i}">${h[0]}</button>`).join('');
+  $('#hRings').innerHTML=H.map((h,i)=>{const s=120-i*19;return `<span class="${i===hIdx?'on':''}" style="width:${s}px;height:${s}px"></span>`;}).join('');
+  $('#hTitle').textContent=(hIdx+1)+'. '+H[hIdx][0];$('#hText').textContent=H[hIdx][1];
+  $('#hSteps').querySelectorAll('.step').forEach(b=>b.onclick=()=>{hIdx=+b.dataset.i;renderH();});
+}
+renderH();
+
+/* ---------- superkompensation ---------- */
+const SK={
+ opt:{pts:[[0,0],[30,-28],[100,12],[130,-16],[200,24],[230,-4],[300,36],[330,8],[400,48]],tr:[0,100,200,300],txt:'Neue Belastung genau im Hoch der Superkompensation: Das Leistungsniveau steigt Stufe für Stufe an.'},
+ short:{pts:[[0,0],[30,-28],[60,-14],[90,-40],[120,-27],[150,-52],[180,-40],[210,-64],[240,-52],[270,-74],[300,-63],[330,-82],[400,-70]],tr:[0,60,120,180,240,300],txt:'Pausen zu kurz: Du startest jedes Training noch ermüdet und „trainierst in den Keller“. Das Niveau sinkt (Übertraining).'},
+ long:{pts:[[0,0],[30,-28],[85,12],[140,3],[200,0],[230,-28],[285,12],[340,3],[400,0]],tr:[0,200],txt:'Pausen zu lang: Die positive Anpassung ist wieder verschwunden, du startest immer vom alten Niveau. Kein Fortschritt.'}
+};
+let skMode='opt';
+function cr(p){let d=`M${p[0][0]},${p[0][1]}`;for(let i=0;i<p.length-1;i++){const p0=p[i-1]||p[i],p1=p[i],p2=p[i+1],p3=p[i+2]||p2;d+=` C${p1[0]+(p2[0]-p0[0])/6},${p1[1]+(p2[1]-p0[1])/6} ${p2[0]-(p3[0]-p1[0])/6},${p2[1]-(p3[1]-p1[1])/6} ${p2[0]},${p2[1]}`;}return d;}
+function drawSK(){
+  const m=SK[skMode],X=x=>50+x*1.5,Y=y=>150-y*1.5;
+  const pts=m.pts.map(p=>[X(p[0]),Y(p[1])]);
+  const cs=getComputedStyle(document.documentElement);
+  const acc=cs.getPropertyValue('--accent').trim(),mut=cs.getPropertyValue('--muted').trim(),tx=cs.getPropertyValue('--text').trim(),bad=cs.getPropertyValue('--bad').trim();
+  const col=skMode==='opt'?acc:(skMode==='short'?bad:mut);
+  const first=pts[0],last=pts[pts.length-1];
+  let s=`<line x1="50" y1="20" x2="50" y2="285" stroke="${tx}" stroke-width="1.5"/>`+
+    `<line x1="50" y1="150" x2="660" y2="150" stroke="${mut}" stroke-dasharray="4 5"/>`+
+    `<text x="58" y="30" fill="${mut}" font-size="13" font-family="Geist">Leistungsfähigkeit</text>`+
+    `<text x="610" y="142" fill="${mut}" font-size="13" font-family="Geist">Zeit</text>`+
+    `<text x="58" y="145" fill="${mut}" font-size="12" font-family="Geist Mono">Ausgangsniveau</text>`;
+  m.tr.forEach(t=>{const x=X(t);s+=`<line x1="${x}" y1="${Y(0)-6}" x2="${x}" y2="290" stroke="${mut}" stroke-width="1" opacity=".35"/><text x="${x+3}" y="290" fill="${mut}" font-size="11" font-family="Geist Mono">T</text>`;});
+  s+=`<line x1="${first[0]}" y1="${first[1]}" x2="${last[0]}" y2="${last[1]}" stroke="${col}" stroke-width="2" stroke-dasharray="3 6" opacity=".8"/>`;
+  s+=`<path d="${cr(pts)}" fill="none" stroke="${col}" stroke-width="3.5" stroke-linecap="round" class="skpath"/>`;
+  $('#skSvg').innerHTML=s;
+  const p=$('#skSvg .skpath');
+  if(!matchMedia('(prefers-reduced-motion: reduce)').matches&&p.getTotalLength){const L=p.getTotalLength();p.style.strokeDasharray=L;p.style.strokeDashoffset=L;p.getBoundingClientRect();p.style.transition='stroke-dashoffset 1.1s cubic-bezier(.16,1,.3,1)';p.style.strokeDashoffset=0;}
+  $('#skText').innerHTML=m.txt+' <span class="mono" style="font-size:12px;color:var(--muted)">T = Training</span>';
+}
+$('#skChips').querySelectorAll('.chip').forEach(b=>b.onclick=()=>{skMode=b.dataset.m;$('#skChips').querySelectorAll('.chip').forEach(x=>x.setAttribute('aria-pressed',x===b));drawSK();});
+drawSK();
+
+/* ---------- KARTEIKARTEN ---------- */
+const CARDS=[
+ ['mus','Welche drei Muskelarten gibt es?','Glatte Muskulatur, Herzmuskulatur, quergestreifte (Skelett-)Muskulatur.'],
+ ['mus','Wo findet man glatte Muskulatur und wie arbeitet sie?','In Wänden der Hohlorgane (Magen-Darm, Blutgefäße). Langsam, nicht willentlich steuerbar, auch in Ruhe leicht angespannt.'],
+ ['mus','Was haben Herz- und Skelettmuskel gemeinsam, was unterscheidet sie?','Beide sind quergestreift. Der Herzmuskel ist aber nicht bewusst steuerbar und kontrahiert rhythmisch und dauerhaft.'],
+ ['mus','Nenne die 4 Grundeigenschaften der Skelettmuskulatur.','Reagiert auf Nervenreize, kann kontrahieren, ist dehnbar, ist elastisch.'],
+ ['mus','Welche 3 Aufgaben hat die Skelettmuskulatur?','Aufrechter Gang, Wärmeproduktion, aktive Bewegung (Zug über Sehnen auf Knochen).'],
+ ['mus','Beschreibe den Aufbau eines Skelettmuskels von groß nach klein.','Skelettmuskel → Muskelfaserbündel → Muskelfaser → Myofibrille → Sarkomer → Aktin- und Myosinfilamente.'],
+ ['mus','Was ist ein Sarkomer?','Kleinste Untereinheit der Myofibrille, begrenzt durch die Z-Streifen. Besteht aus Aktin- und Myosinfilamenten.'],
+ ['mus','Was passiert im Sarkomer bei einer Kontraktion?','Das dünne Aktinfilament schiebt sich zwischen das dicke Myosinfilament.'],
+ ['mus','Was ist eine motorische Einheit?','Eine Nervenzelle zusammen mit allen von ihr angesteuerten Muskelfasern.'],
+ ['mus','Erkläre die Alles-oder-nichts-Regel.','Sendet die Nervenzelle einen Reiz, kontrahiert jede verbundene Faser maximal. Abstufung der Kraft durch die Anzahl aktivierter motorischer Einheiten.'],
+ ['mus','Isometrisch, konzentrisch, exzentrisch: Was bedeutet was?','Isometrisch: Kraft ohne Längenänderung (Unterarmstütz). Konzentrisch: Muskel verkürzt sich (Armbeugen). Exzentrisch: Muskel wird trotz Spannung gedehnt (Landung).'],
+ ['mus','Agonist und Antagonist beim Armbeugen?','Agonist (Spieler) = Bizeps, Antagonist (Gegenspieler) = Trizeps.'],
+ ['mus','Was ist Hypertrophie?','Dickenwachstum der Muskelfasern, der Muskelquerschnitt nimmt zu. Sichtbar nach ca. 7 bis 8 Wochen.'],
+ ['mus','Intra- vs. intermuskuläre Koordination?','Intra: Zusammenspiel innerhalb eines Muskels (viele motorische Einheiten gleichzeitig). Inter: Zusammenspiel verschiedener Muskeln.'],
+ ['pri','Nenne die 4 Belastungskomponenten.','Intensität, Dauer, Umfang, Dichte (dazu Trainingshäufigkeit).'],
+ ['pri','Was beschreibt die Belastungsdichte?','Das Verhältnis von Belastung und Erholung, also die Pausen. Kürzere Pausen = höhere Dichte = höhere Belastung.'],
+ ['pri','Wie hängen Intensität und Umfang zusammen?','Gegenläufig: Hohe Intensität bedeutet geringen Umfang und umgekehrt.'],
+ ['pri','Prinzip des trainingswirksamen Reizes?','Unterschwellige Reize wirken nicht, überschwellige verbessern die Leistung, zu starke schaden. Die Belastung muss über dem Schwellenwert liegen.'],
+ ['pri','Prinzip der optimalen Relation von Belastung und Erholung?','Neue Belastung zum Zeitpunkt der höchsten Superkompensation. Pausen zu kurz: Leistungsabfall. Zu lang: Anpassung verschwindet.'],
+ ['pri','Wie lange sollte die Erholung dauern?','Kraft und Schnelligkeit 48 bis 72 Stunden, Ausdauer 18 bis 36 Stunden. 2 bis 3 Einheiten pro Woche.'],
+ ['pri','Prinzip der richtigen Belastungszusammensetzung?','Komponenten so kombinieren, dass genau die gewünschte konditionelle Fähigkeit trainiert wird.'],
+ ['pri','Wiederholungsmethode für die 100-m-Zeit?','Nahezu maximale Intensität, lange Pausen (vollständige Erholung), kurze Distanzen um 30 m.'],
+ ['fit','Woher kommt der Begriff Fitness?','Vom englischen „to fit“: geeignet, passend, fähig, bereit.'],
+ ['fit','Wie definiert der DOSB Fitness?','Durch Training von Kraft, Ausdauer, Schnelligkeit, Beweglichkeit und Koordination bewusst angestrebtes Leistungsvermögen, plus psychische und soziale Komponenten.'],
+ ['fit','Wie wirkt Ausdauertraining auf das Herz?','Herz wird größer, Schlagvolumen steigt, Puls sinkt in Ruhe und unter Belastung, das Herz wird entlastet.'],
+ ['fit','Anpassungen von Blut und Gefäßen?','Blutmenge bis +25 % (1 bis 2 l), mehr Hämoglobin, Blut dünnflüssiger. Mehr Kapillaren (Kapillarisierung), größere Austauschfläche.'],
+ ['fit','Nenne psychische Chancen von Fitnesstraining.','Stressresistenz, Wohlbefinden (Endorphin, Serotonin), Entspannungsfähigkeit, gesteigerter Selbstwert, Glücklichsein.'],
+ ['fit','Was ist eine muskuläre Dysbalance?','Kräfteungleichgewicht zwischen einem Muskel und seinem Gegenspieler, z. B. durch einseitiges Training oder langes Sitzen.'],
+ ['fit','Primäre vs. sekundäre Sportsucht?','Primär: Zwang zum Sport selbst. Sekundär: sportbegleitende Sucht, z. B. Essstörung, Kalorienverbrauch im Vordergrund.'],
+ ['fit','Warum heißt es im Freizeitsport nicht Doping?','Doping gibt es nur im Wettkampfsport mit Regelwerk. Im Freizeitsport spricht man von Medikamentenmissbrauch.'],
+ ['fit','Was ist Anorexia athletica?','Form der Magersucht: krankhaftes Untergewicht durch viel Bewegung und zu wenig Energiezufuhr, bewusst für mehr Leistung. Z. B. Judo, Skispringen, Ballett.'],
+ ['kra','Definiere Kraft trainingswissenschaftlich.','Fähigkeit der Muskulatur, durch Kontraktion einen Widerstand zu überwinden, ihm entgegenzuwirken oder ihn zu halten.'],
+ ['kra','Ab wann spricht man von Kraftleistung?','Ab mindestens 30 % des individuellen Kraftmaximums.'],
+ ['kra','1-RM vs. 10-RM?','1-RM: Gewicht für genau 1 Wiederholung (belastend, selten im Amateurbereich). 10-RM: letzte von 10 Wdh. gerade noch, ca. 80 % der Maximalkraft, für Fitness bevorzugt.'],
+ ['kra','Nenne die 3 Kraftfähigkeiten mit Beispiel.','Maximalkraft (Gewichtheberin), Schnellkraft (Boxerin), Kraftausdauer (Ruderin).'],
+ ['kra','Q-Methode: Wirkung und Belastung?','Muskelquerschnitt ↑. 8 bis 12 Wdh. gerade so, 4 bis 6 Serien, 2 bis 3 min Pause.'],
+ ['kra','IK-Methode: Wirkung und Belastung?','Mehr innervierte Fasern (intramuskuläre Koordination). Maximale Intensität, 1 bis 5 Wdh., 4 bis 5 Serien, 3 bis 5 min Pause.'],
+ ['kra','Welche Methoden trainieren Kraftausdauer?','Zirkeltraining und Stations- bzw. Serientraining. Wirkung: höhere Ermüdungswiderstandsfähigkeit.'],
+ ['kra','Tipps für fitnessorientiertes Krafttraining?','Viele große Muskelgruppen, niedrige bis mittlere Intensität, Alltagsgegenstände/Körpergewicht, Methode passend zum Ziel.'],
+ ['kra','Was ist HIIT?','High-Intensity-Intervall-Training: hohe Intensität, kurze Gesamtdauer, trainiert Kraft und Ausdauer.'],
+ ['anp','Was bedeutet „Use it or lose it“?','Regelmäßiges Training führt zu Anpassung, Pausen lassen Muskelmasse wieder schwinden. Adaptation läuft in beide Richtungen.'],
+ ['anp','Was ist der Muscle-Memory-Effekt?','Nach langer Pause erinnert sich der Muskel an den früheren Zustand und baut Masse schneller wieder auf.'],
+ ['anp','Nenne die endogenen Einflussfaktoren.','Trainingszustand, Alter, Geschlecht.'],
+ ['anp','Nenne exogene Einflussfaktoren.','Ernährung, regenerative Maßnahmen, Belastungsparameter (und Doping).'],
+ ['anp','Warum bauen Männer schneller Muskeln auf?','Mehr Testosteron. In gleicher Zeit ca. 3-mal so viel Muskelmasse.'],
+ ['anp','Nenne regenerative Maßnahmen.','Auslaufen, aktive Erholung (Laktatabbau), Massage, Kälteanwendungen, ausreichend Schlaf.']
+];
+let fcFilter='all',fcQueue=[],fcCur=null;
+function fcBuild(){
+  const ids=CARDS.map((c,i)=>i).filter(i=>(fcFilter==='all'||CARDS[i][0]===fcFilter)&&!S.known.includes(i));
+  fcQueue=shuffle(ids);fcNext();
+}
+function fcNext(){
+  const fc=$('#fc');fc.classList.remove('flip');
+  const pool=CARDS.map((c,i)=>i).filter(i=>fcFilter==='all'||CARDS[i][0]===fcFilter);
+  const known=pool.filter(i=>S.known.includes(i)).length;
+  $('#fcMeta').textContent=`${known} von ${pool.length} gewusst`;
+  if(!fcQueue.length){fcCur=null;$('#fcT1').textContent='Fertig';$('#fcQ').textContent='Alle Karten in diesem Stapel gewusst. Stark.';$('#fcA').textContent='Setz die Karten zurück oder wähle ein anderes Thema.';$('#fcT2').textContent='';return;}
+  fcCur=fcQueue[0];const c=CARDS[fcCur];
+  setTimeout(()=>{$('#fcT1').textContent=TOPICS[c[0]];$('#fcT2').textContent=TOPICS[c[0]]+' · Antwort';$('#fcQ').textContent=c[1];$('#fcA').textContent=c[2];},fc.classList.contains('flip')?250:0);
+}
+$('#fc').onclick=()=>$('#fc').classList.toggle('flip');
+$('#fcKnow').onclick=()=>{if(fcCur===null)return;S.known.push(fcCur);fcQueue.shift();save();fcNext();};
+$('#fcAgain').onclick=()=>{if(fcCur===null)return;fcQueue.push(fcQueue.shift());fcNext();};
+$('#fcReset').onclick=()=>{S.known=S.known.filter(i=>!(fcFilter==='all'||CARDS[i][0]===fcFilter));save();fcBuild();};
+function filterChips(el,cur,cb,extra){
+  const items=[['all','Alle'],...Object.entries(TOPICS),...(extra||[])];
+  el.innerHTML=items.map(([k,v])=>`<button class="chip" data-k="${k}" aria-pressed="${k===cur}">${v}</button>`).join('');
+  el.querySelectorAll('.chip').forEach(b=>b.onclick=()=>{el.querySelectorAll('.chip').forEach(x=>x.setAttribute('aria-pressed',x===b));cb(b.dataset.k);});
+}
+filterChips($('#fcFilter'),'all',k=>{fcFilter=k;fcBuild();});
+fcBuild();
+
+/* ---------- QUIZ ---------- */
+const QZ=[
+ ['mus',1,'Welche Muskulatur ist willentlich steuerbar?',['Glatte Muskulatur','Herzmuskulatur','Skelettmuskulatur','Alle drei'],2,'Nur die quergestreifte Skelettmuskulatur reagiert auf willentliche Nervenreize. Herz und glatte Muskulatur arbeiten unbewusst.'],
+ ['mus',1,'Wie viel Prozent der Körpermasse macht die Skelettmuskulatur ungefähr aus?',['ca. 15 %','ca. 30 %','ca. 45 %','ca. 70 %'],2,'Laut Heft circa 45 Prozent.'],
+ ['mus',1,'Welche Reihenfolge stimmt (groß → klein)?',['Muskelfaser → Muskelfaserbündel → Myofibrille → Sarkomer','Muskelfaserbündel → Muskelfaser → Myofibrille → Sarkomer','Myofibrille → Muskelfaser → Sarkomer → Muskelfaserbündel','Muskelfaserbündel → Myofibrille → Muskelfaser → Sarkomer'],1,'Muskel → Bündel → Faser → Myofibrille → Sarkomer → Aktin/Myosin.'],
+ ['mus',1,'Wodurch sind Sarkomere begrenzt?',['Sehnen','Z-Streifen','Myosinköpfe','Zellkerne'],1,'Die Begrenzung sieht man als feine quer verlaufende Linien, die Z-Streifen.'],
+ ['mus',2,'Ein Turner hält sich im Stütz still an den Ringen. Welche Kontraktionsform liegt vor?',['konzentrisch','exzentrisch','isometrisch','isotonisch'],2,'Kraftentwicklung ohne Längenänderung des Muskels = isometrisch (haltend).'],
+ ['mus',2,'Beim Abbremsen in der Landung nach einem Sprung arbeitet der Oberschenkelmuskel …',['konzentrisch','exzentrisch','isometrisch','gar nicht'],1,'Der Muskel wird trotz Kontraktion gedehnt: exzentrisch, also nachgebend bzw. negativ.'],
+ ['mus',2,'Warum kann ein Muskel trotz Alles-oder-nichts-Regel abgestuft Kraft entwickeln?',['Fasern kontrahieren auch halb','Es werden unterschiedlich viele motorische Einheiten aktiviert','Die Sehnen dosieren die Kraft','Der Antagonist bremst immer'],1,'Jede aktivierte Faser kontrahiert maximal, die Abstufung kommt über die Anzahl aktivierter motorischer Einheiten.'],
+ ['mus',2,'Warum können Augenmuskeln feiner arbeiten als der Bizeps?',['Sie haben mehr Zellkerne','Weniger als 10 Fasern pro motorischer Einheit','Sie sind glatte Muskulatur','Sie kontrahieren exzentrisch'],1,'Augenmuskel: unter 10 Fasern je Einheit, Bizeps: über 2000. Kleine Einheiten erlauben feine Dosierung.'],
+ ['mus',2,'Jemand wird stärker, ohne zuzunehmen. Was hat sich wahrscheinlich verbessert?',['Hypertrophie','Intramuskuläre Koordination','Kapillarisierung','Blutvolumen'],1,'Mehr motorische Einheiten gleichzeitig aktivierbar → mehr Kraft ohne Gewichtszunahme.'],
+ ['pri',1,'Welche Belastungskomponente beschreibt das Verhältnis von Belastung und Erholung?',['Intensität','Umfang','Dichte','Dauer'],2,'Die Dichte entspricht in der Praxis den Pausen.'],
+ ['pri',2,'„Ich mache 5 Serien Kniebeugen.“ Welche Komponente ist gemeint?',['Dauer','Umfang','Dichte','Intensität'],1,'Im Krafttraining wird der Umfang über die Anzahl der Serien angegeben. Die Wiederholungen pro Serie wären die Dauer.'],
+ ['pri',2,'Du verkürzt die Pausen von 90 s auf 30 s. Was passiert?',['Dichte sinkt, Belastung sinkt','Dichte steigt, Belastung steigt','Intensität steigt automatisch','Umfang sinkt'],1,'Kürzere Pausen = höhere Dichte = höhere Gesamtbelastung, weil die Erholungszeit abnimmt.'],
+ ['pri',1,'Empfohlene Erholung zwischen zwei Krafteinheiten?',['6 bis 12 h','18 bis 36 h','48 bis 72 h','eine Woche'],2,'Kraft und Schnelligkeit: 48 bis 72 h. Ausdauer: 18 bis 36 h.'],
+ ['pri',2,'Was passiert, wenn die Pausen zwischen Trainingseinheiten dauerhaft zu kurz sind?',['Leistung steigt schneller','Leistung bleibt gleich','Leistungsniveau sinkt','Superkompensation wird größer'],2,'Du trainierst „in den Keller“, weil du nie vollständig erholt bist.'],
+ ['pri',2,'Ein untrainierter Schüler läuft einmal pro Monat locker 10 Minuten. Welches Prinzip wird verletzt?',['Trainingswirksamer Reiz und Relation Belastung/Erholung','Nur Belastungszusammensetzung','Keines','Nur Dysbalance'],0,'Der Reiz ist zu schwach (unterschwellig) und die Pausen viel zu lang, die Anpassung verfällt wieder.'],
+ ['pri',2,'Welche Methode passt zur Verbesserung der Sprintzeit über 100 m?',['Dauermethode, 30 min locker','Wiederholungsmethode: maximal schnell, ca. 30 m, lange Pausen','Zirkeltraining mit 30 s Pause','Stationstraining mit 40 Wdh.'],1,'Zyklische Aktionsschnelligkeit: extrem hohe Intensität, lange Pausen, kurze Distanzen.'],
+ ['fit',1,'Welche konditionelle Fähigkeit gehört NICHT zur DOSB-Definition von Fitness?',['Beweglichkeit','Koordination','Taktik','Schnelligkeit'],2,'Genannt werden Kraft, Ausdauer, Schnelligkeit, Beweglichkeit und Koordination.'],
+ ['fit',2,'Warum sinkt der Ruhepuls durch Ausdauertraining?',['Das Herz schlägt schwächer','Das Schlagvolumen steigt, pro Schlag wird mehr Blut gepumpt','Das Blut wird dickflüssiger','Weniger Kapillaren'],1,'Größeres Herz → mehr Schlagvolumen → für gleiche Leistung weniger Schläge nötig.'],
+ ['fit',2,'Was bewirkt eine bessere Kapillarisierung?',['Weniger Sauerstoff im Muskel','Größere Austauschfläche, Muskeln besser versorgt','Höherer Blutdruck','Mehr Laktat'],1,'Mehr Kapillaren und größerer Querschnitt = mehr Fläche für den Sauerstoffaustausch.'],
+ ['fit',1,'Welche Hormone gelten als Glückshormone?',['Cortisol und Insulin','Endorphin und Serotonin','Adrenalin und Testosteron','Noradrenalin und Insulin'],1,'Endorphin und Serotonin bauen Stress ab und hellen die Stimmung auf.'],
+ ['fit',2,'Jemand trainiert nur Bauch und Brust. Welche Folge ist wahrscheinlich?',['Hohlkreuz durch starke Rückenmuskeln','Rundrücken durch verkürzte Brust- und Bauchmuskulatur','Keine, solange er regelmäßig trainiert','Mehr Beweglichkeit'],1,'Muskuläre Dysbalance: Bauch und Brust verkürzen, Rücken wird vernachlässigt.'],
+ ['fit',1,'Eine sportbegleitende Essstörung ist eine …',['primäre Sportsucht','sekundäre Sportsucht','Anorexia athletica ist immer primär','Dysbalance'],1,'Sekundäre Sportsucht: Sport wird wegen Kalorienverbrauch und Gewichtsreduktion betrieben.'],
+ ['fit',2,'Warum spricht man im Fitnessstudio von Medikamentenmissbrauch und nicht von Doping?',['Weil die Mittel legal sind','Weil Doping nur im Wettkampfsport mit Regelwerk definiert ist','Weil nur Schmerzmittel genommen werden','Weil die WADA nicht zuständig ist'],1,'Freizeitsportler unterliegen keinem Doping-Reglement.'],
+ ['kra',1,'Ab wie viel Prozent des Kraftmaximums spricht man von Kraftleistung?',['10 %','30 %','50 %','80 %'],1,'Mindestens 30 % des individuellen Kraftmaximums.'],
+ ['kra',2,'Warum ist der 10-RM-Test im Fitnesssport besser geeignet als der 1-RM-Test?',['Er ist genauer','Geringere Belastung und Überlastungsgefahr','Er misst Schnellkraft','Er dauert kürzer'],1,'1-RM belastet den Bewegungsapparat stark. 10-RM ist nur ein Näherungswert (ca. 80 %), aber sicherer.'],
+ ['kra',2,'Eine Boxerin muss einen Schlag möglichst schnell ausführen. Welche Kraftfähigkeit dominiert?',['Maximalkraft','Schnellkraft','Kraftausdauer','Haltekraft'],1,'Körperteil in kurzer Zeit maximal beschleunigen = Schnellkraft.'],
+ ['kra',2,'Ziel: Muskelquerschnitt vergrößern. Welche Belastung passt?',['1 bis 5 Wdh., maximal','8 bis 12 Wdh., 4 bis 6 Serien, 2 bis 3 min Pause','20 bis 40 Wdh., 30 s Pause','30 min locker laufen'],1,'Das ist die Q-Methode.'],
+ ['kra',2,'Die IK-Methode verbessert vor allem …',['den Muskelquerschnitt','die Zahl gleichzeitig innervierter Muskelfasern','die Kraftausdauer','die Beweglichkeit'],1,'IK = intramuskuläre Koordination: mehr motorische Einheiten gleichzeitig.'],
+ ['kra',1,'Welche Methode trainiert Kraftausdauer?',['IK-Methode','Q-Methode','Zirkeltraining','Wiederholungsmethode'],2,'Zirkel- und Stationstraining verbessern die Ermüdungswiderstandsfähigkeit.'],
+ ['kra',2,'Welcher Tipp passt NICHT zum fitnessorientierten Krafttraining?',['Viele große Muskelgruppen pro Training','Höchste Belastung des Bewegungsapparats','Körpergewicht nutzen','Methode passend zum Ziel'],1,'Höchste Belastungen sollen vermieden werden (Verletzungsprophylaxe).'],
+ ['anp',1,'Welche Faktoren sind endogen?',['Ernährung, Schlaf, Massage','Alter, Geschlecht, Trainingszustand','Doping, Ernährung, Alter','Belastungsparameter, Geschlecht'],1,'Endogen = innere Faktoren: Trainingszustand, Alter, Geschlecht.'],
+ ['anp',2,'Warum macht ein Anfänger schneller Fortschritte als ein Profi?',['Er trainiert härter','Je niedriger das Ausgangsniveau, desto größer die Anpassung','Er hat mehr Testosteron','Er braucht keine Pausen'],1,'Mit steigendem Niveau werden die Trainingseffekte kleiner.'],
+ ['anp',2,'Welche Maßnahme beschleunigt den Laktatabbau nach dem Training?',['Sofort hinsetzen','Auslaufen, aktive Erholung','Mehr Intensität','Zucker essen'],1,'Aktive Erholung mit dynamischer Muskelarbeit baut Laktat schneller ab.'],
+ ['anp',1,'Wie lange brauchen weniger gut Trainierte bis zur fast vollständigen Erholung?',['bis 1 h','bis 6 h','bis 24 h','bis 72 h'],2,'Spitzensportler 3 bis 6 h, weniger Trainierte bis zu 24 h (Heft Anpassung).'],
+ ['anp',2,'Ein Ausdauersportler sollte nach der Belastung vor allem welche Speicher auffüllen?',['Eiweiß','Kohlenhydrate','Fett','Vitamin D'],1,'Im Ausdauersport sind Kohlenhydrate für die Energiebereitstellung entscheidend; Kraftsportler brauchen viel Eiweiß.']
+];
+let qz={list:[],i:0,score:0,answered:false,filter:'all'};
+function qzStart(k){
+  qz.filter=k||qz.filter;
+  let ids=QZ.map((q,i)=>i);
+  if(qz.filter==='wrong')ids=S.wrong.slice();else if(qz.filter!=='all')ids=ids.filter(i=>QZ[i][0]===qz.filter);
+  qz.list=shuffle(ids).slice(0,qz.filter==='all'?15:ids.length);qz.i=0;qz.score=0;qzRender();
+}
+function qzRender(){
+  const box=$('#qzBox');
+  if(!qz.list.length){box.innerHTML=`<div class="box"><p>${qz.filter==='wrong'?'Dein Fehler-Stapel ist leer.':'Keine Fragen.'}</p></div>`;return;}
+  if(qz.i>=qz.list.length){
+    const pct=Math.round(qz.score/qz.list.length*100);
+    if(qz.filter==='all'&&(S.quizBest===null||pct>S.quizBest)){S.quizBest=pct;}
+    save();
+    box.innerHTML=`<div class="box result"><div class="big">${pct} %</div><p style="font-size:18px">${qz.score} von ${qz.list.length} richtig. ${pct>=85?'Klausurreif.':pct>=60?'Gut, schau dir die Fehler nochmal an.':'Lies die Themen im Lernzettel nach und versuch es nochmal.'}</p><div class="row"><button class="btn" id="qzAgain">Neue Runde</button>${S.wrong.length?`<button class="btn ghost" id="qzWrong">Fehler üben (${S.wrong.length})</button>`:''}</div></div>`;
+    $('#qzAgain').onclick=()=>qzStart();
+    if($('#qzWrong'))$('#qzWrong').onclick=()=>{filterChips($('#qzFilter'),'wrong',qzStart,[['wrong','Meine Fehler']]);qzStart('wrong');};
+    return;
+  }
+  const qi=qz.list[qz.i],q=QZ[qi];qz.answered=false;
+  const order=shuffle(q[3].map((o,i)=>i));
+  box.innerHTML=`<div class="qprog"><span>Frage ${qz.i+1} / ${qz.list.length}</span><span>${TOPICS[q[0]]} <span class="afb a${q[1]}">AFB ${q[1]===1?'I':'II'}</span></span></div>
+  <div class="bar"><i style="width:${qz.i/qz.list.length*100}%"></i></div>
+  <div class="qtext">${esc(q[2])}</div>
+  <div class="opts">${order.map(o=>`<button class="opt" data-o="${o}">${esc(q[3][o])}</button>`).join('')}</div>
+  <div class="explain" id="qzEx"></div>
+  <div class="row" style="margin-top:14px"><button class="btn" id="qzNext" hidden>Weiter</button></div>`;
+  box.querySelectorAll('.opt').forEach(b=>b.onclick=()=>{
+    if(qz.answered)return;qz.answered=true;const o=+b.dataset.o,ok=o===q[4];
+    box.querySelectorAll('.opt').forEach(x=>{x.disabled=true;if(+x.dataset.o===q[4])x.classList.add('right');});
+    if(!ok)b.classList.add('wrong');
+    if(ok){qz.score++;S.wrong=S.wrong.filter(x=>x!==qi);}else if(!S.wrong.includes(qi))S.wrong.push(qi);
+    save();
+    const ex=$('#qzEx');ex.innerHTML=`<strong>${ok?'Richtig.':'Leider falsch.'}</strong> ${esc(q[5])}`;ex.classList.add('on');
+    $('#qzNext').hidden=false;$('#qzNext').focus();
+  });
+  $('#qzNext').onclick=()=>{qz.i++;qzRender();};
+}
+filterChips($('#qzFilter'),'all',qzStart,[['wrong','Meine Fehler']]);
+qzStart('all');
+
+/* ---------- LÜCKENTEXTE ---------- */
+const GAPS=[
+ ['mus','Aufbau und Kontraktion','Jeder Skelettmuskel besteht aus vielen {{Muskelfaserbündeln|Muskelfaserbündel}}. Diese bestehen aus vielen {{Muskelfasern|Muskelfaser}}. Jede Faser wird längs von {{Myofibrillen|Myofibrille}} durchzogen, die aus aneinandergereihten {{Sarkomeren|Sarkomer|Sarkomere}} bestehen. Diese sind durch die {{Z-Streifen|Z-Streifen|Zstreifen}} begrenzt. Bei einer Kontraktion schiebt sich das dünne {{Aktin|Aktinfilament}} zwischen das dicke {{Myosin|Myosinfilament}}.'],
+ ['mus','Arbeitsweisen','Eine Nervenzelle mit allen von ihr angesteuerten Muskelfasern heißt {{motorische Einheit}}. Nach der {{Alles-oder-nichts|Alles-oder-nichts-Regel|alles oder nichts}}-Regel kontrahiert jede verbundene Faser maximal. Verkürzt sich der Muskel, arbeitet er {{konzentrisch}}; wird er trotz Spannung gedehnt, arbeitet er {{exzentrisch}}; ohne Längenänderung arbeitet er {{isometrisch}}. Beim Armbeugen ist der Bizeps der {{Agonist}} und der Trizeps der {{Antagonist}}.'],
+ ['pri','Belastung und Erholung','Die vier Belastungskomponenten sind Intensität, Dauer, {{Umfang}} und {{Dichte}}. Die Dichte beschreibt das Verhältnis von Belastung und {{Erholung|Pause|Pausen}}. Nach dem Prinzip des trainingswirksamen Reizes bleiben {{unterschwellige|unterschwellig}} Reize wirkungslos. Die neue Belastung sollte zum Zeitpunkt der höchsten {{Superkompensation}} erfolgen. Im Krafttraining gilt eine Erholungszeit von {{48|48 bis 72}} bis 72 Stunden, im Ausdauertraining 18 bis {{36}} Stunden.'],
+ ['fit','Chancen und Gefahren','Fitness kommt vom englischen „to {{fit}}“. Ausdauertraining vergrößert das Herz, dadurch steigt das {{Schlagvolumen}} und der Ruhepuls {{sinkt|sinkt ab}}. Die Blutmenge kann um bis zu {{25}} Prozent steigen. Mehr Kapillaren nennt man {{Kapillarisierung}}. Als Glückshormone gelten {{Endorphin|Serotonin}} und Serotonin. Ein Kräfteungleichgewicht zwischen Muskel und Gegenspieler heißt muskuläre {{Dysbalance|Dysbalancen}}. Eine Essstörung als Begleiterscheinung ist eine {{sekundäre}} Sportsucht.'],
+ ['kra','Kraft und Methoden','Von Kraftleistung spricht man ab {{30}} Prozent des Kraftmaximums. Beim 10-RM-Test liegt die Last bei ca. {{80}} Prozent der Maximalkraft. Die drei Kraftfähigkeiten sind Maximalkraft, {{Schnellkraft}} und {{Kraftausdauer}}. Die {{Q-Methode|Q Methode|Querschnittsmethode}} vergrößert den Muskelquerschnitt mit 8 bis 12 Wiederholungen. Die {{IK-Methode|IK Methode}} verbessert die intramuskuläre Koordination mit 1 bis {{5}} Wiederholungen. Kraftausdauer trainiert man z. B. mit {{Zirkeltraining|Zirkel}}.'],
+ ['anp','Anpassung','Die Anpassung des Körpers an Reize nennt man {{Adaptation|Anpassung}}. Innere Einflussfaktoren heißen {{endogen|endogene}}, äußere {{exogen|exogene}}. Zu den inneren zählen Trainingszustand, {{Alter}} und Geschlecht. Männer bauen wegen ihres höheren {{Testosteron|Testosteronspiegels|Testosteronspiegel}} schneller Muskeln auf. Kraftsportler brauchen viel {{Eiweiß|Eiweiss|Protein}}, Ausdauersportler vor allem {{Kohlenhydrate}}.']
+];
+const norm=s=>s.toLowerCase().replace(/ß/g,'ss').replace(/[\s\-–.]/g,'');
+function renderGaps(){
+  $('#gpBox').innerHTML=GAPS.map((g,gi)=>{
+    let n=0;const words=[];
+    const html=esc(g[2]).replace(/\{\{(.+?)\}\}/g,(m,a)=>{const alts=a.split('|');words.push(alts[0]);const w=Math.max(6,alts[0].length);return `<input class="gap" style="--w:${w}" data-g="${gi}" data-n="${n++}" data-a="${esc(a)}" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Lücke">`;});
+    return `<div class="box"><div class="row" style="justify-content:space-between;margin-bottom:6px"><h4 style="margin:0">${g[1]}</h4><span class="mono" style="font-size:12px;color:var(--muted)">${TOPICS[g[0]]}</span></div>
+    <div class="bank" id="bank${gi}">${shuffle(words).map(w=>`<span>${esc(w)}</span>`).join('')}</div>
+    <div class="gap-text">${html}</div>
+    <div class="row" style="margin-top:12px"><button class="btn small" data-check="${gi}">Prüfen</button><button class="btn ghost small" data-bank="${gi}">Wortbank</button><button class="btn ghost small" data-clear="${gi}">Leeren</button><span class="mono" id="gres${gi}" style="font-size:13px;color:var(--muted)"></span></div></div>`;
+  }).join('');
+  $('#gpBox').querySelectorAll('[data-check]').forEach(b=>b.onclick=()=>checkGap(+b.dataset.check));
+  $('#gpBox').querySelectorAll('[data-bank]').forEach(b=>b.onclick=()=>$('#bank'+b.dataset.bank).classList.toggle('on'));
+  $('#gpBox').querySelectorAll('[data-clear]').forEach(b=>b.onclick=()=>{const gi=b.dataset.clear;document.querySelectorAll(`.gap[data-g="${gi}"]`).forEach(i=>{i.value='';i.className='gap';const s=i.nextElementSibling;if(s&&s.classList.contains('sol'))s.remove();});$('#gres'+gi).textContent='';});
+  $('#gpBox').querySelectorAll('.gap').forEach(i=>i.addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();const all=[...document.querySelectorAll(`.gap[data-g="${i.dataset.g}"]`)];const nx=all[all.indexOf(i)+1];if(nx)nx.focus();else checkGap(+i.dataset.g);}}));
+}
+function checkGap(gi){
+  const ins=[...document.querySelectorAll(`.gap[data-g="${gi}"]`)];let ok=0;
+  ins.forEach(i=>{const alts=i.dataset.a.split('|');const good=alts.some(a=>norm(a)===norm(i.value));i.className='gap '+(good?'ok':'no');
+    const s=i.nextElementSibling;if(s&&s.classList.contains('sol'))s.remove();
+    if(good)ok++;else{const sp=document.createElement('span');sp.className='sol';sp.textContent=alts[0];i.after(sp);}});
+  $('#gres'+gi).textContent=`${ok} / ${ins.length} richtig`;
+  S.gapsOk[gi]=Math.max(S.gapsOk[gi]||0,ok);save();
+}
+renderGaps();
+
+/* ---------- KLAUSURAUFGABEN ---------- */
+const TASKS=[
+ ['mus',1,'Nenne die drei Muskelarten und beschreibe jeweils ein Merkmal.',6,['glatte Muskulatur: Hohlorgane, langsam, unwillkürlich','Herzmuskulatur: quergestreift, aber unwillkürlich, rhythmisch','Skelettmuskulatur: quergestreift, willkürlich, ca. 45 % der Körpermasse']],
+ ['mus',1,'Beschreibe den Aufbau eines Skelettmuskels vom Muskel bis zum Sarkomer.',6,['Skelettmuskel aus vielen Muskelfaserbündeln','Bündel aus vielen Muskelfasern (große Zelle, viele Kerne, bis 15 cm)','Muskelfaser enthält Myofibrillen (kontraktionsfähig)','Myofibrillen aus Aktin- und Myosinfilamenten, aneinandergereiht in Sarkomeren, begrenzt durch Z-Streifen']],
+ ['mus',2,'Erkläre am Beispiel eines Klimmzugs (hochziehen, oben halten, langsam ablassen) die drei Kontraktionsformen.',8,['Hochziehen: Armbeuger verkürzen sich → konzentrisch (überwindend)','Oben halten: Kraft ohne Längenänderung → isometrisch (haltend)','Langsam ablassen: Muskel wird unter Spannung gedehnt → exzentrisch (nachgebend)','Definition Kraft: überwinden, entgegenwirken, halten']],
+ ['mus',2,'Erkläre, wie ein Muskel trotz Alles-oder-nichts-Regel unterschiedlich viel Kraft entwickeln kann.',6,['Motorische Einheit = Nervenzelle + angesteuerte Fasern','Bei Reiz kontrahiert jede Faser der Einheit maximal','Kraftabstufung über Anzahl gleichzeitig aktivierter Einheiten (10, 20 oder mehrere 100)','Wechselnde Aktivierung verhindert frühe Ermüdung']],
+ ['mus',2,'Vergleiche Hypertrophie und intramuskuläre Koordination als Wege zu mehr Kraft.',8,['Hypertrophie: Fasern verdicken, Querschnitt ↑, meist Gewichtszunahme, sichtbar nach 7 bis 8 Wochen','IK: mehr motorische Einheiten gleichzeitig aktivierbar, Kraft ↑ ohne Gewichtszunahme','Gemeinsam: beide steigern die Maximalkraft','Methoden: Q-Methode für Hypertrophie, IK-Methode für IK']],
+ ['pri',1,'Nenne die Belastungskomponenten und erläutere jede mit einem Beispiel aus dem Krafttraining.',8,['Intensität: Anstrengungsgrad, z. B. Gewicht in kg','Dauer: Wiederholungen pro Serie','Umfang: Anzahl der Serien','Dichte: Pausenlänge zwischen den Serien']],
+ ['pri',2,'Erkläre das Prinzip der optimalen Relation von Belastung und Erholung mithilfe der Superkompensation.',8,['Belastung senkt kurzfristig das Leistungsniveau (Ermüdung)','In der Erholung steigt es über das Ausgangsniveau (Superkompensation)','Optimal: neue Belastung im Hoch → Leistung steigt stufenweise','Zu kurze Pausen: Abwärtsspirale; zu lange: Effekt verpufft','Richtwerte: Kraft 48 bis 72 h, Ausdauer 18 bis 36 h']],
+ ['pri',3,'Lena (16) trainiert seit zwei Wochen jeden Tag 90 Minuten Krafttraining für die Beine und fühlt sich immer schlapper. Beurteile ihr Training und gib begründete Empfehlungen.',10,['Verstoß gegen Relation Belastung/Erholung: keine 48 bis 72 h Pause','Folge: Übertraining, Leistung sinkt, Verletzungsrisiko','Einseitig nur Beine → Gefahr muskulärer Dysbalancen','Empfehlung: 2 bis 3 Einheiten/Woche, Ganzkörper, auch Antagonisten','Regeneration: Schlaf, Ernährung (Eiweiß), Auslaufen','Fazit mit klarem Urteil']],
+ ['fit',2,'Erläutere die positiven Anpassungen von Herz, Blut und Gefäßen durch Ausdauertraining.',9,['Herz: größer, Muskel dicker, Schlagvolumen ↑, Puls ↓, Herz entlastet','Blut: Menge bis +25 %, mehr Hämoglobin, mehr O₂-Transport, dünnflüssiger','Gefäße: Kapillarisierung, größere Austauschfläche, bessere Versorgung']],
+ ['fit',3,'„Fitnessstudios sind für Jugendliche gefährlich.“ Nimm Stellung zu dieser Aussage.',12,['Chancen: Herz-Kreislauf, Stressresistenz, Wohlbefinden, Selbstwert','Gefahren: Dysbalancen bei einseitigem Training, Medikamentenmissbrauch (v. a. bei Muskelaufbau), Sportsucht, Anorexia athletica','Gefahr steigt, je stärker man sich über den Körper definiert','Gegenmaßnahmen: Ganzkörper, Antagonisten, Aufklärung, betreutes Training','Abgewogenes Fazit (z. B. nicht per se gefährlich, abhängig von Art des Trainings)']],
+ ['fit',2,'Erkläre die Entstehung muskulärer Dysbalancen und wie man ihnen vorbeugt.',6,['Kräfteungleichgewicht zwischen Agonist und Antagonist','Ursachen: einseitiges Training, Fehlhaltungen wie langes Sitzen','Folgen: Verkürzungen, veränderte Gelenkbelastung, z. B. Rundrücken','Vorbeugen: Antagonisten mittrainieren, ausgewogenes Training']],
+ ['kra',1,'Definiere Kraft und nenne die drei Kraftfähigkeiten mit je einem sportlichen Beispiel.',6,['Fähigkeit der Muskulatur, Widerstände zu überwinden, entgegenzuwirken oder zu halten','Maximalkraft: Gewichtheben','Schnellkraft: Boxschlag, Sprint-Start','Kraftausdauer: Rudern']],
+ ['kra',2,'Vergleiche den 1-RM- und den 10-RM-Test.',6,['1-RM: Last für genau eine Wiederholung, exakt, aber hohe Belastung, Überlastungsgefahr','10-RM: letzte von 10 Wiederholungen, ca. 80 % der Maximalkraft, nur Näherungswert','10-RM für Fitness und Gesundheit zu bevorzugen']],
+ ['kra',3,'Tom (17) möchte für den Sommer muskulöser werden und hat nur zu Hause Zeit. Entwickle einen begründeten Trainingsvorschlag.',12,['Ziel Muskelaufbau → Q-Methode: 8 bis 12 Wdh., 4 bis 6 Serien, 2 bis 3 min Pause','Fitnessorientiert: große Muskelgruppen, Körpergewicht/Alltagsgegenstände','Agonist und Antagonist (Dysbalancen vermeiden)','2 bis 3 Einheiten/Woche, 48 bis 72 h Pause (Superkompensation)','Trainingswirksamer Reiz: Belastung steigern, wenn es leicht wird','Ernährung Eiweiß, Schlaf; Hypertrophie sichtbar nach 7 bis 8 Wochen']],
+ ['anp',2,'Erläutere die endogenen Einflussfaktoren auf Anpassungsprozesse.',6,['Trainingszustand: Anfänger große, Profis kleine Zuwächse','Alter: Anpassung langsamer, bleibt aber erhalten, mehr Erholung nötig','Geschlecht: Testosteron, Männer ca. 3-mal mehr Muskelzuwachs']],
+ ['anp',3,'Beurteile, welche Maßnahmen ein Fußballer nach einem Spiel ergreifen sollte, um am nächsten Spieltag fit zu sein.',10,['Regenerative Maßnahmen: Auslaufen (Laktatabbau), Massage, Kälte, Schlaf','Ernährung: Kohlenhydrate und Mineralstoffe/Flüssigkeit auffüllen, Eiweiß','Belastungsparameter in den Folgetagen anpassen','Begründung über Superkompensation und Erholungszeiten','Fazit: Kombination, Doping als exogener Faktor ausgeschlossen']]
+];
+let tkFilter='all';
+function taskHTML(t,i,sim){
+  const roman=['','I','II','III'][t[1]];
+  return `<details class="task" ${sim?'open':''}><summary><span class="afb a${t[1]}">AFB ${roman}</span><span>${esc(t[2])}</span><span class="pts">${t[3]} P.</span></summary>
+  <div class="body"><textarea placeholder="Deine Antwort in Stichpunkten oder ganzen Sätzen" aria-label="Deine Antwort"></textarea>
+  <div class="row" style="margin-top:10px"><button class="btn small" data-model="${i}" ${sim?'disabled':''}>Erwartungshorizont zeigen</button></div>
+  <div class="model" id="model${sim?'s':''}${i}"><strong>Das sollte drin sein:</strong><ul>${t[4].map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div></div></details>`;
+}
+function renderTasks(){
+  const list=TASKS.map((t,i)=>[t,i]).filter(([t])=>tkFilter==='all'||t[0]===tkFilter);
+  $('#tkBox').innerHTML=list.map(([t,i])=>taskHTML(t,i,false)).join('');
+  $('#tkBox').querySelectorAll('[data-model]').forEach(b=>b.onclick=()=>$('#model'+b.dataset.model).classList.toggle('on'));
+}
+filterChips($('#tkFilter'),'all',k=>{tkFilter=k;renderTasks();});
+renderTasks();
+
+/* Probeklausur */
+let simT=null,simEnd=0,simSet=[];
+function pick(afb,n,ex){return shuffle(TASKS.map((t,i)=>i).filter(i=>TASKS[i][1]===afb&&!ex.includes(i))).slice(0,n);}
+$('#simStart').onclick=()=>{
+  const a=pick(1,1,[]),b=pick(2,2,a),c=pick(3,1,[]);simSet=[...a,...b,...c];
+  $('#taskHead').textContent='Deine Probeklausur';$('#tkFilter').style.display='none';
+  $('#tkBox').innerHTML=simSet.map(i=>taskHTML(TASKS[i],i,true)).join('');
+  simEnd=Date.now()+45*60000;$('#simStart').hidden=true;$('#simStop').hidden=false;
+  clearInterval(simT);simT=setInterval(tick,1000);tick();
+  $('#simBox').scrollIntoView({behavior:'smooth',block:'start'});
+};
+function tick(){const ms=Math.max(0,simEnd-Date.now());const m=Math.floor(ms/60000),s=Math.floor(ms%60000/1000);$('#simTime').textContent=String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');if(ms<=0)simDone();}
+function simDone(){
+  clearInterval(simT);$('#simStop').hidden=true;$('#simStart').hidden=false;$('#simStart').textContent='Neue Probeklausur';
+  const pts=simSet.reduce((a,i)=>a+TASKS[i][3],0);
+  $('#taskHead').textContent=`Abgegeben · ${pts} Punkte möglich`;
+  $('#tkBox').querySelectorAll('[data-model]').forEach(b=>{b.disabled=false;b.onclick=()=>$('#models'+b.dataset.model).classList.toggle('on');});
+  $('#tkBox').querySelectorAll('.model').forEach(m=>m.classList.add('on'));
+  const back=document.createElement('button');back.className='btn ghost small';back.style.marginTop='14px';back.textContent='Zurück zu allen Aufgaben';
+  back.onclick=()=>{$('#taskHead').textContent='Alle Übungsaufgaben';$('#tkFilter').style.display='';$('#simTime').textContent='45:00';renderTasks();};
+  $('#tkBox').appendChild(back);
+}
+$('#simStop').onclick=simDone;
+
+/* ---------- stats ---------- */
+function stats(){
+  const k=S.known.length;$('#stCards').textContent=k;$('#brCards').style.width=(k/CARDS.length*100)+'%';
+  $('#stQuiz').textContent=(S.quizBest||0)+'%';$('#brQuiz').style.width=(S.quizBest||0)+'%';
+  const tot=GAPS.reduce((a,g)=>a+(g[2].match(/\{\{/g)||[]).length,0);const ok=Object.values(S.gapsOk).reduce((a,b)=>a+b,0);
+  $('#stGaps').textContent=ok;$('#brGaps').style.width=(ok/tot*100)+'%';
+}
+stats();
+</script>
+</body>
+</html>
