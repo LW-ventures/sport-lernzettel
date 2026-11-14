@@ -221,15 +221,24 @@ tbody tr+tr td{border-top:1px solid var(--line)}
 footer{border-top:1px solid var(--line);padding:24px 0 40px;color:var(--muted);font-size:13px}
 
 /* splash */
-#splash{position:fixed;inset:0;z-index:100;background:var(--bg);display:grid;place-items:center;animation:spOut .28s cubic-bezier(.7,0,.84,0) .68s forwards;pointer-events:none}
-.sp-in{display:grid;gap:14px;justify-items:start}
-.sp-word{font-size:clamp(64px,18vw,128px);overflow:hidden;line-height:1;padding-bottom:4px}
-.sp-word span{display:inline-block;transform:translateY(105%);animation:spUp .42s cubic-bezier(.16,1,.3,1) forwards}
-.sp-word span+span{animation-delay:.08s;color:var(--accent)}
-.sp-bar{width:100%;height:6px;border-radius:9px;background:var(--surface-2);overflow:hidden}
-.sp-bar i{display:block;height:100%;width:100%;background:var(--accent);transform:scaleX(0);transform-origin:left;animation:spBar .5s cubic-bezier(.65,0,.35,1) .14s forwards}
-@keyframes spUp{to{transform:none}}
-@keyframes spBar{to{transform:scaleX(1)}}
+#splash{position:fixed;inset:0;z-index:100;background:var(--bg);display:grid;place-items:center;animation:spOut .25s cubic-bezier(.7,0,.84,0) .76s forwards;pointer-events:none}
+.sp-in{display:grid;gap:8px;justify-items:center}
+#splash svg{width:clamp(140px,40vw,200px);height:auto;overflow:visible}
+.sp-arm{fill:transparent;stroke:var(--accent);stroke-width:5;stroke-linejoin:round;stroke-linecap:round;stroke-dasharray:101;stroke-dashoffset:101;
+  animation:spDraw .42s cubic-bezier(.65,0,.35,1) forwards,spFill .15s linear .38s forwards}
+.sp-armg{transform-origin:150px 150px;transform-box:view-box;animation:spPump .3s cubic-bezier(.34,1.56,.64,1) .45s both}
+.sp-crease{fill:none;stroke:var(--bg);stroke-width:5;stroke-linecap:round;opacity:0;animation:spFade .12s linear .45s forwards}
+.sp-rays line{stroke:var(--accent);stroke-width:5;stroke-linecap:round;opacity:0;transform-box:fill-box;transform-origin:center;animation:spRay .3s ease-out .52s forwards}
+.sp-rays line:nth-child(2){animation-delay:.56s}
+.sp-rays line:nth-child(3){animation-delay:.6s}
+.sp-word{font-size:clamp(48px,13vw,84px);line-height:1;opacity:0;transform:translateY(12px);animation:spRise .32s cubic-bezier(.16,1,.3,1) .36s forwards}
+.sp-word span{color:var(--accent)}
+@keyframes spDraw{to{stroke-dashoffset:0}}
+@keyframes spFill{to{fill:var(--accent)}}
+@keyframes spFade{to{opacity:1}}
+@keyframes spPump{0%{transform:scale(1)}45%{transform:scale(1.09) rotate(-3deg)}100%{transform:scale(1)}}
+@keyframes spRay{0%{opacity:0;transform:scale(.3)}40%{opacity:1}100%{opacity:0;transform:scale(1.15) translateY(-4px)}}
+@keyframes spRise{to{opacity:1;transform:none}}
 @keyframes spOut{to{opacity:0;transform:translateY(-3%)}}
 @media (prefers-reduced-motion: reduce){#splash{display:none}}
 @media print{#splash{display:none}}
@@ -257,7 +266,18 @@ footer{border-top:1px solid var(--line);padding:24px 0 40px;color:var(--muted);f
 </style>
 </head>
 <body>
-<div id="splash" aria-hidden="true"><div class="sp-in"><div class="sp-word display"><span>Sport</span> <span>J2</span></div><div class="sp-bar"><i></i></div></div></div>
+<div id="splash" aria-hidden="true"><div class="sp-in">
+  <svg viewBox="0 0 200 200">
+    <g class="sp-armg">
+      <path class="sp-arm" pathLength="100" d="M20 172 L20 140 C22 120 34 110 46 106 C58 86 80 76 98 78 C116 80 128 92 134 108 C136 90 138 76 140 64 C130 60 124 50 126 40 C128 26 140 14 158 14 C174 14 182 26 180 40 C179 50 175 58 168 62 C176 88 180 116 178 140 C176 160 162 172 142 172 Z"/>
+      <path class="sp-crease" d="M133 110 C124 122 108 128 88 126"/>
+      <path class="sp-crease" d="M128 30 L144 30"/>
+      <path class="sp-crease" d="M127 44 L143 44"/>
+    </g>
+    <g class="sp-rays"><line x1="62" y1="74" x2="52" y2="62"/><line x1="96" y1="62" x2="96" y2="46"/><line x1="128" y1="74" x2="138" y2="62"/></g>
+  </svg>
+  <div class="sp-word display">Sport <span>J2</span></div>
+</div></div>
 
 <header class="top">
   <div class="wrap top-in">
